@@ -18,7 +18,6 @@ export default {
       state.token = null
       localStorage.removeItem(TOKEN_KEY)
     }
-
   },
   actions: {
     async login({commit}, payload) {
