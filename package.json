@@ -5,7 +5,7 @@
   "scripts": {
     "start": "vue-cli-service serve",
     "dbase": "json-server --watch db.json --port 3030",
-    "serve": "concurretly \"npm run start\" \"npm run dbase\"",
+    "serve": "concurrently \"npm run start\" \"npm run dbase\"",
     "build": "vue-cli-service build"
   },
   "dependencies": {
