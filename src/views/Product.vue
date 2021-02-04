@@ -2,7 +2,6 @@
 	<div class="card">
 		This is Product page
 		<button @click.prevent="getData">получить</button>
-		<router-view />
 	</div>
 </template>
 

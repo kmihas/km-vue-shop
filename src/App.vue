@@ -3,15 +3,21 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import MainLayout from './layouts/MainLayout'
 import AuthLayout from './layouts/AuthLayout'
 
 export default {
 	setup() {
+		const store = useStore()
 		const route = useRoute()
 		const layout = computed(() => route.meta.layout)
+
+		onBeforeMount(() => {
+			store.dispatch('products/getAllProducts')
+		})
 
 		return {
 			layout,
@@ -23,5 +29,3 @@ export default {
 	},
 }
 </script>
-
-<style lang="scss" scoped></style>

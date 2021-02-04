@@ -8,7 +8,7 @@ export default {
     }
   },
   mutations: {
-    setProfucts(state, item) {
+    setProducts(state, item) {
       console.log(item)
 
       state.products = item
@@ -17,7 +17,7 @@ export default {
   actions: {
     async getAllProducts({commit}) {
       const data = await getProducts()
-      commit('setProfucts', data)
+      commit('setProducts', data)
     }
   },
   getters: {
