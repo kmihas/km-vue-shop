@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { error } from '../../utils/error'
-const TOKEN_KEY = 'jwt-token'
+const TOKEN_KEY = process.env.VUE_APP_TOKEN_KEY
+const APIKEY = process.env.VUE_APP_APIKEY
 
 export default {
   namespaced: true,
@@ -22,7 +23,7 @@ export default {
   actions: {
     async login({commit}, payload) {
       try {
-        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.VUE_APP_APIKEY}`
+        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${APIKEY}`
         const {data} = await axios.post(url, {...payload, returnSecureToken: true})
         commit('setToken', data.idToken)
       } catch (e) {
