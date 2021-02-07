@@ -36,7 +36,7 @@ export default {
 			router.push('/auth')
 		}
 
-		const cartCount = computed(() => store.getters['products/cartCount'])
+		const cartCount = computed(() => store.getters['cart/cartCount'])
 
 		return {
 			cartCount,

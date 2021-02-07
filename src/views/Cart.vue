@@ -39,3 +39,10 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+.card {
+	margin: 0 auto;
+	width: 920px;
+}
+</style>

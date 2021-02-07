@@ -78,6 +78,6 @@ export default {
 
 <style scoped>
 .prodcount {
-	padding: 1.5rem;
+	padding: 1rem;
 }
 </style>

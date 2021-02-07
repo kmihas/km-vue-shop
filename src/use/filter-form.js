@@ -30,7 +30,9 @@ export function useFilterForm(props, context) {
   }
 
   onMounted(() => {
-    searchString.value = route.query.q
+    if(route.query.q) {
+      searchString.value = route.query.q
+    }
     M.updateTextFields()
   })
 
