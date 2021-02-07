@@ -42,6 +42,7 @@
 <script>
 import { computed } from 'vue'
 export default {
+	name: 'CartTable',
 	props: {
 		cartProducts: {
 			type: Object,

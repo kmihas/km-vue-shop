@@ -4,7 +4,6 @@
 			<router-link to="/" class="brand-logo">Vue-Shop</router-link>
 			<ul id="nav-mobile" class="right">
 				<li><router-link to="/shop">Home</router-link></li>
-				<li><router-link to="/product">Product</router-link></li>
 				<li>
 					<router-link to="/cart">
 						Cart

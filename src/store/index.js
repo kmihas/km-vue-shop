@@ -1,5 +1,6 @@
 import { createLogger, createStore } from 'vuex'
 import auth from './modules/auth.module'
+import categoryes from './modules/categoryes.module'
 import products from './modules/products.module'
 
 const plugins = []
@@ -9,7 +10,7 @@ if(process.env.NODE_ENV === 'development') {
 }
 
 export default createStore({
-  plugins,
+  // plugins,
   state: {
   },
   mutations: {
@@ -18,6 +19,7 @@ export default createStore({
   },
   modules: {
     auth,
-    products
+    products,
+    categoryes
   }
 })

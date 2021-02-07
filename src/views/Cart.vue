@@ -22,10 +22,11 @@
 <script>
 import CartTable from '../components/cart/CartTable'
 import CartTitle from '../components/cart/CartTitle'
-import AppLoader from '../components/AppLoader'
+import AppLoader from '../components/ui/AppLoader'
 import { useCart } from '../use/cart'
 
 export default {
+	name: 'Cart',
 	setup() {
 		return {
 			...useCart(),

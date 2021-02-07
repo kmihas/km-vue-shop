@@ -7,6 +7,7 @@
 
 <script>
 export default {
+	name: 'CartTitle',
 	props: {
 		cartClear: {
 			type: Boolean,

@@ -10,6 +10,7 @@ const routes = [
     alias: '/',
     name: 'shop',
     component: Shop,
+    props: route => ({ query: route.query.q, query: route.query.category }),
     meta: {
       layout: 'main',
       auth: false
@@ -30,7 +31,7 @@ const routes = [
     component: () => import('../views/Cart'),
     meta: {
       layout: 'main',
-      auth: true
+      auth: false
     }
   },
   {
