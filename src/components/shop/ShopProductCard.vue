@@ -18,19 +18,7 @@
 						В корзину
 					</button>
 					<div v-else>
-						<button
-							class="btn-small blue-grey darken-2"
-							@click.prevent="countDown(product.id)"
-						>
-							-
-						</button>
-						<span class="prodcount">{{ count }}</span>
-						<button
-							class="btn-small blue-grey darken-2"
-							@click.prevent="countUp(product.id)"
-						>
-							+
-						</button>
+						<AppCountUpDown :productId="+product.id" :count="+count" />
 					</div>
 				</div>
 			</div>
@@ -41,6 +29,7 @@
 <script>
 import { computed, inject } from 'vue'
 import { useStore } from 'vuex'
+import AppCountUpDown from '../ui/AppCountUpDown'
 
 export default {
 	props: {
@@ -75,6 +64,9 @@ export default {
 			countUp,
 			countDown,
 		}
+	},
+	components: {
+		AppCountUpDown,
 	},
 }
 </script>

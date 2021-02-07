@@ -5,20 +5,9 @@ export function useCart() {
   const store = useStore()
   const cart = computed(() => store.getters['cart/cart'])
   const cartProducts = computed(() => store.getters['cart/cartProducts'])
-  const cartClear = computed(() => {
-    return !Object.keys(cart.value).length
-  })
-  const loading = computed(() => store.getters['cart/loading'])
-
-  const countUp = (id) => {
-    store.commit('cart/upProductCount', id)
-  }
-
-  const countDown = (id) => {
-    store.commit('cart/downProductCount', id)
-  }
-
   const cartLength = computed(() => Object.keys(cart.value).length)
+  const cartClear = computed(() => !cartLength.value)
+  const loading = computed(() => store.getters['cart/loading'])
 
   onBeforeMount(() => {
     store.dispatch('cart/getCartProducts')
@@ -34,8 +23,6 @@ export function useCart() {
     cart,
     cartProducts,
     cartClear,
-    countUp,
-    countDown,
     loading
   }
 }

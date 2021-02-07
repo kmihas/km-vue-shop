@@ -6,8 +6,6 @@
 				v-if="!cartClear && !loading"
 				:cartProducts="cartProducts"
 				:cart="cart"
-				@countUp="countUp"
-				@countDown="countDown"
 			/>
 			<app-loader v-if="loading" />
 		</div>

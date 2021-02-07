@@ -11,19 +11,7 @@
 			<tr v-for="item in cartProducts" :key="item.id">
 				<td>{{ item.title }}</td>
 				<td>
-					<button
-						class="btn-small blue-grey darken-2"
-						@click.prevent="countDown(item.id)"
-					>
-						-
-					</button>
-					<span class="prodcount">{{ cart[item.id] }}</span>
-					<button
-						class="btn-small blue-grey darken-2"
-						@click.prevent="countUp(item.id)"
-					>
-						+
-					</button>
+					<AppCountUpDown :productId="+item.id" :count="+cart[item.id]" />
 					шт.
 				</td>
 				<td>{{ item.price }}</td>
@@ -41,6 +29,8 @@
 
 <script>
 import { computed } from 'vue'
+import AppCountUpDown from '../ui/AppCountUpDown'
+
 export default {
 	name: 'CartTable',
 	props: {
@@ -51,8 +41,7 @@ export default {
 			type: Object,
 		},
 	},
-	emits: ['countUp', 'countDown'],
-	setup(props, context) {
+	setup(props) {
 		const total = computed(() => {
 			return Object.keys(props.cartProducts).reduce((acc, id) => {
 				const item = props.cartProducts[id]
@@ -60,18 +49,12 @@ export default {
 			}, 0)
 		})
 
-		const countUp = (id) => {
-			context.emit('countUp', id)
-		}
-		const countDown = (id) => {
-			context.emit('countDown', id)
-		}
-
 		return {
 			total,
-			countUp,
-			countDown,
 		}
+	},
+	components: {
+		AppCountUpDown,
 	},
 }
 </script>
