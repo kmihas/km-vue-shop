@@ -1,12 +1,12 @@
 <template>
 	<nav class="row">
 		<div class="nav-wrapper blue-grey darken-3">
-			<router-link to="/" class="brand-logo">Vue-Shop</router-link>
+			<router-link to="/" class="brand-logo">Продукты</router-link>
 			<ul id="nav-mobile" class="right">
-				<li><router-link to="/shop">Home</router-link></li>
+				<li><router-link to="/shop">Магазин</router-link></li>
 				<li>
 					<router-link to="/cart">
-						Cart
+						Корзина
 						<span
 							class="new badge red"
 							data-badge-caption=""
@@ -15,7 +15,7 @@
 						>
 					</router-link>
 				</li>
-				<li><a href="" @click.prevent="logout">Logout</a></li>
+				<li><a href="" @click.prevent="logout">Выход</a></li>
 			</ul>
 		</div>
 	</nav>
