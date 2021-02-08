@@ -1,8 +1,9 @@
 import { computed, onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export function useFilterForm(props, context) {
   const route = useRoute()
+  const router = useRouter()
   const searchString = ref('')
   const catProducts = computed(() => {
     return [
@@ -15,7 +16,7 @@ export function useFilterForm(props, context) {
     ]
   })
 
-  const onSearch = () => {
+  const changeSearch = () => {
     context.emit('search', searchString.value)
   }
 
@@ -23,9 +24,10 @@ export function useFilterForm(props, context) {
     context.emit('changecat', cat)
   }
 
-  const clearFilter = () => {
+  const clearFilter = async () => {
+    await router.push(route.path)
+    await changeCategory('all')
     searchString.value = ''
-    changeCategory('all')
     M.updateTextFields()
   }
 
@@ -37,14 +39,14 @@ export function useFilterForm(props, context) {
   })
 
   watch(searchString, (newVal) => {
-    onSearch()
+    changeSearch()
     M.updateTextFields()
   })
 
   return {
     catProducts,
     searchString,
-    onSearch,
+    changeSearch,
     changeCategory,
     clearFilter
   }

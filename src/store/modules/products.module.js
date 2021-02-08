@@ -20,11 +20,14 @@ export default {
     },
   },
   actions: {
-    async getProducts({commit}, search) {
+    async getProducts({commit}, payload = {}) {
       commit('setLoading', true)
-      const url = '/products?_sort=count,title&_order=desc,asc'
-      if(search){
-        url += `&q=${search}`
+      let url = '/products?_sort=count,title&_order=desc,asc'
+      if(payload.search){
+        url += `&q=${payload.search}`
+      }
+      if(payload.category && payload.category !== 'all') {
+        url += `&category=${payload.category}`
       }
       const data = await requestAxios.get(url)
       await commit('setProducts', data.data)

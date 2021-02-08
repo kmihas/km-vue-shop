@@ -5,7 +5,7 @@
 				type="text"
 				id="search"
 				v-model="searchString"
-				@change="onSearch"
+				@change="changeSearch"
 			/>
 			<label for="search">Найти товар...</label>
 		</div>

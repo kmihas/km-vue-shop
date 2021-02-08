@@ -48,21 +48,12 @@ export default {
 
 		const addToCart = (id) => {
 			store.commit('cart/addToCart', id)
-		}
-
-		const countUp = (id) => {
-			store.commit('cart/upProductCount', id)
-		}
-
-		const countDown = (id) => {
-			store.commit('cart/downProductCount', id)
+			store.dispatch('cart/getCartProducts')
 		}
 
 		return {
 			count,
 			addToCart,
-			countUp,
-			countDown,
 		}
 	},
 	components: {

@@ -31,17 +31,18 @@ export default {
       localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart))
     },
     downProductCount(state, id) {
-      if(state.cart[id] > 1) {
+      if(+state.cart[id] > 1) {
         state.cart[id]--
       } else {
-        const idx = state.cartProducts.findIndex(el => el.id === id)
-        delete state.cart[id]
+        const idx = state.cartProducts.findIndex(el => +el.id === +id)
         state.cartProducts.splice(idx, 1)
+        delete state.cart[id]
       }
       localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart))
     },
     addToCart(state, id) {
       state.cart[id] = 1
+      localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart))
     }
   },
   actions: {
