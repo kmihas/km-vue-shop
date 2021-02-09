@@ -35,7 +35,6 @@ export default {
       commit('setLoading', false)
     },
     async getProductById({commit}, id) {
-      commit('setProduct', {})
       commit('setLoading', true)
       const url = `/products/${id}`
       const data = await requestAxios.get(url)

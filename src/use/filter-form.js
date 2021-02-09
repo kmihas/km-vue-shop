@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 export function useFilterForm(props, context) {
   const route = useRoute()
   const router = useRouter()
-  const searchString = ref('')
+  const searchString = ref(route.query.q)
   const catProducts = computed(() => {
     return [
       {
@@ -32,9 +32,6 @@ export function useFilterForm(props, context) {
   }
 
   onMounted(() => {
-    if(route.query.q) {
-      searchString.value = route.query.q
-    }
     M.updateTextFields()
   })
 

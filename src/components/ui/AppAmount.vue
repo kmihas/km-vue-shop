@@ -18,6 +18,7 @@
 import { useStore } from 'vuex'
 
 export default {
+	name: 'Amount',
 	props: {
 		productId: {
 			type: Number,

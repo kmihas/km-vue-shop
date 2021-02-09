@@ -1,12 +1,10 @@
 <template>
-	<div>
-		категории
-	</div>
+	<div>продукты</div>
 </template>
 
 <script>
 export default {
-	name: 'Categoryes',
+	name: 'AdminsProducts',
 	setup() {
 		return {}
 	},

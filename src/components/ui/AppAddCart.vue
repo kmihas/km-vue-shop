@@ -1,21 +1,25 @@
 <template>
-	<button
-		class="btn-small blue-grey darken-2 waves-effect"
-		:disabled="!product.count"
-		v-if="!count"
-		@click.prevent="addToCart(product.id)"
-	>
-		В корзину
-	</button>
+	<div v-if="product.count">
+		<button
+			class="btn-small blue-grey darken-2 waves-effect"
+			v-if="!count"
+			@click.prevent="addToCart(product.id)"
+		>
+			В корзину
+		</button>
+		<div v-else>
+			<AppAmount :productId="+product.id" :count="+count" />
+		</div>
+	</div>
 	<div v-else>
-		<AppCountUpDown :productId="+product.id" :count="+count" />
+		Товар отсутствует
 	</div>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import AppCountUpDown from './AppCountUpDown'
+import AppAmount from './AppAmount'
 
 export default {
 	props: {
@@ -42,7 +46,7 @@ export default {
 		}
 	},
 	components: {
-		AppCountUpDown,
+		AppAmount,
 	},
 }
 </script>

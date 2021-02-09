@@ -45,11 +45,11 @@ const routes = [
     children: [
       {
         path: 'products',
-        component: () => import('../components/admin/products')
+        component: () => import('../components/admin/AdminProducts')
       },
       {
         path: 'categoryes',
-        component: () => import('../components/admin/categoryes')
+        component: () => import('../components/admin/AdminCategoryes')
       }
     ]
   },

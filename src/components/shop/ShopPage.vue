@@ -1,9 +1,9 @@
 <template>
 	<div class="container col s10 m10 x10">
-		<div class="card product-loader" v-if="loader">
+		<div class="page product-loader" v-if="loader">
 			<app-loader />
 		</div>
-		<div class="card" v-else>
+		<div class="page" v-else>
 			<shop-product-card
 				v-for="item in products"
 				:key="item.id"
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-.card {
+.page {
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;

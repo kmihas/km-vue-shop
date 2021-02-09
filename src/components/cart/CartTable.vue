@@ -11,7 +11,7 @@
 			<tr v-for="item in cartProducts" :key="item.id">
 				<td>{{ item.title }}</td>
 				<td>
-					<AppCountUpDown :productId="+item.id" :count="+cart[item.id]" />
+					<AppAmount :productId="+item.id" :count="+cart[item.id]" />
 					шт.
 				</td>
 				<td>{{ item.price }}</td>
@@ -29,7 +29,7 @@
 
 <script>
 import { computed } from 'vue'
-import AppCountUpDown from '../ui/AppCountUpDown'
+import AppAmount from '../ui/AppAmount'
 
 export default {
 	name: 'CartTable',
@@ -54,7 +54,7 @@ export default {
 		}
 	},
 	components: {
-		AppCountUpDown,
+		AppAmount,
 	},
 }
 </script>
