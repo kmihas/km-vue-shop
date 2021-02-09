@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import MainLayout from './layouts/MainLayout'
 import AuthLayout from './layouts/AuthLayout'
+import AdminLayout from './layouts/AdminLayout'
 
 export default {
 	setup() {
@@ -26,6 +27,7 @@ export default {
 	components: {
 		MainLayout,
 		AuthLayout,
+		AdminLayout,
 	},
 }
 </script>

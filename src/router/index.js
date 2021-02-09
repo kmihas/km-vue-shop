@@ -35,6 +35,25 @@ const routes = [
     }
   },
   {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../views/Admin'),
+    meta: {
+      layout: 'admin',
+      auth: true
+    },
+    children: [
+      {
+        path: 'products',
+        component: () => import('../components/admin/products')
+      },
+      {
+        path: 'categoryes',
+        component: () => import('../components/admin/categoryes')
+      }
+    ]
+  },
+  {
     path: '/auth',
     name: 'auth',
     component: Auth,
