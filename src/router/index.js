@@ -18,7 +18,7 @@ const routes = [
   },
   {
     path: '/product/:id?',
-    name: 'profuct',
+    name: 'product',
     component: Product,
     meta: {
       layout: 'main',
@@ -36,7 +36,7 @@ const routes = [
   },
   {
     path: '/auth',
-    name: 'Auth',
+    name: 'auth',
     component: Auth,
     meta: {
       layout: 'auth',

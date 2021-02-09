@@ -45,7 +45,7 @@ export function useShop() {
 
 		onMounted(() => {
 			store.dispatch('categoryes/getCategoryes')
-			store.dispatch('products/getProducts')
+			searchProducts()
 		})
 
 		return {

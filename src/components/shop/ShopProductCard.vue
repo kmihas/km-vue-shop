@@ -2,24 +2,16 @@
 	<div class="row">
 		<div class="col s12">
 			<div class="card small">
-				<div class="card-image">
-					<img :src="product.img" />
-				</div>
+				<router-link :to="{ path: `/product/${product.id}` }">
+					<div class="card-image">
+						<img :src="product.img" />
+					</div>
+				</router-link>
 				<div class="card-title">
 					<span class="">{{ product.title }}</span>
 				</div>
 				<div class="card-action">
-					<button
-						class="btn-small blue-grey darken-2 waves-effect"
-						:disabled="!product.count"
-						v-if="!count"
-						@click.prevent="addToCart(product.id)"
-					>
-						В корзину
-					</button>
-					<div v-else>
-						<AppCountUpDown :productId="+product.id" :count="+count" />
-					</div>
+					<AppAddCart :product="product" />
 				</div>
 			</div>
 		</div>
@@ -27,9 +19,7 @@
 </template>
 
 <script>
-import { computed, inject } from 'vue'
-import { useStore } from 'vuex'
-import AppCountUpDown from '../ui/AppCountUpDown'
+import AppAddCart from '../ui/AppAddCart'
 
 export default {
 	props: {
@@ -38,26 +28,11 @@ export default {
 			requared: true,
 		},
 	},
-	setup(props) {
-		const store = useStore()
-		const cart = inject('cart')
-
-		const count = computed(() => {
-			return cart.value[props.product.id] ? cart.value[props.product.id] : 0
-		})
-
-		const addToCart = (id) => {
-			store.commit('cart/addToCart', id)
-			store.dispatch('cart/getCartProducts')
-		}
-
-		return {
-			count,
-			addToCart,
-		}
+	setup() {
+		return {}
 	},
 	components: {
-		AppCountUpDown,
+		AppAddCart,
 	},
 }
 </script>

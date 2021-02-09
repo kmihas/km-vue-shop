@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import MainLayout from './layouts/MainLayout'
@@ -14,6 +14,10 @@ export default {
 		const store = useStore()
 		const route = useRoute()
 		const layout = computed(() => route.meta.layout)
+
+		onBeforeMount(() => {
+			store.dispatch('cart/getCartProducts')
+		})
 
 		return {
 			layout,

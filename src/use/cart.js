@@ -1,4 +1,4 @@
-import { computed, onBeforeMount, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useStore } from 'vuex'
 
 export function useCart() {
@@ -8,10 +8,6 @@ export function useCart() {
   const cartLength = computed(() => Object.keys(cart.value).length)
   const cartClear = computed(() => !cartLength.value)
   const loading = computed(() => store.getters['cart/loading'])
-
-  onBeforeMount(() => {
-    store.dispatch('cart/getCartProducts')
-  })
 
   watch(cartLength, (newVal, oldVal) => {
     if( newVal > oldVal ){

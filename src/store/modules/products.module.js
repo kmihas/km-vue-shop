@@ -5,6 +5,7 @@ export default {
   state() {
     return {
       products: [],
+      product: {},
       loading: false
     }
   },
@@ -12,8 +13,8 @@ export default {
     setProducts(state, item) {
       state.products = item
     },
-    setCartProducts(state, item) {
-      state.cartProducts = item
+    setProduct(state, item) {
+      state.product = item
     },
     setLoading(state, item) {
       state.loading = item
@@ -33,6 +34,14 @@ export default {
       await commit('setProducts', data.data)
       commit('setLoading', false)
     },
+    async getProductById({commit}, id) {
+      commit('setProduct', {})
+      commit('setLoading', true)
+      const url = `/products/${id}`
+      const data = await requestAxios.get(url)
+      await commit('setProduct', data.data)
+      commit('setLoading', false)
+    }
   },
   getters: {
     products(state) {
@@ -40,6 +49,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    product(state) {
+      return state.product
     }
   }
 }
