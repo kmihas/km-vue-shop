@@ -52,7 +52,7 @@ export default {
 		},
 	},
 	emits: ['search', 'changecat'],
-	setup(props, context) {
+	setup(context) {
 		return {
 			...useFilterForm(context),
 		}

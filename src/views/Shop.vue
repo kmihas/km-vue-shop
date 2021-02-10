@@ -1,6 +1,6 @@
 <template>
 	<div class="row col s12">
-		<ShopFilter
+		<ShopFilterForm
 			:categoryes="categoryes"
 			:category="category"
 			@search="search"
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import ShopFilter from '../components/shop/ShopFilter'
+import ShopFilterForm from '../components/shop/ShopFilterForm'
 import ShopProductList from '../components/shop/ShopProductList'
 import { useShop } from '../use/shop'
 
@@ -24,7 +24,7 @@ export default {
 	},
 	components: {
 		ShopProductList,
-		ShopFilter,
+		ShopFilterForm,
 	},
 }
 </script>
