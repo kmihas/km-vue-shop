@@ -11,9 +11,14 @@
 		</div>
 		<div>
 			<ul class="collection">
+				<li :class="['collection-item', { active: category === '' }]">
+					<a href="#" @click="changeCategory('')">
+						Все
+					</a>
+				</li>
 				<li
 					:class="['collection-item', { active: item.type === category }]"
-					v-for="item in catProducts"
+					v-for="item in categoryes"
 					:key="item.id"
 				>
 					<a href="#" @click="changeCategory(item.type)">
@@ -49,7 +54,7 @@ export default {
 	emits: ['search', 'changecat'],
 	setup(props, context) {
 		return {
-			...useFilterForm(props, context),
+			...useFilterForm(context),
 		}
 	},
 }

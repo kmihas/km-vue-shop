@@ -10,7 +10,7 @@ const routes = [
     alias: '/',
     name: 'shop',
     component: Shop,
-    props: route => ({ query: route.query.q, query: route.query.category }),
+    props: route => ({ query: route.query.search, query: route.query.category }),
     meta: {
       layout: 'main',
       auth: false

@@ -29,7 +29,7 @@ export default {
 			required: true,
 		},
 	},
-	setup(props) {
+	setup() {
 		const store = useStore()
 		const countUp = (id) => {
 			store.commit('cart/upProductCount', id)

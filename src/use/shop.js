@@ -1,4 +1,4 @@
-import { computed, onMounted, provide, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -9,27 +9,20 @@ export function useShop() {
 		const router = useRouter()
 
 		const timer = ref('')
-		const searchString = computed(() => {
-			return route.query.q ? route.query.q : ''
-		})
-		const category = computed(() => {
-			return route.query.category ? route.query.category : 'all'
-		})
+		const searchString = ref(route.query.search || '')
+		const category = ref(route.query.category || '')
 
-		const categoryes = computed(() => store.getters['categoryes/categoryes'])
 		const products = computed(() => store.getters['products/products'])
 		const loading = computed(() => store.getters['products/loading'])
-		const cart = computed(() => store.getters['cart/cart'])
-
-    provide('cart', cart)
+		const categoryes = computed(() => store.getters['categoryes/categoryes'])
 
 		const search = async (string) => {
-			await router.push(`${route.path}?q=${string}&category=${category.value}`)
+			searchString.value = string
 			searchProducts(TIMER)
 		}
 
 		const changeCategory = async (cat) => {
-			await router.push(`${route.path}?q=${searchString.value}&category=${cat}`)
+			category.value = cat
 			searchProducts()
 		}
 
@@ -37,11 +30,22 @@ export function useShop() {
 			clearTimeout(timer.value)
 			timer.value = setTimeout(() => {
 				store.dispatch('products/getProducts', {
-					search: `${searchString.value}`,
-					category: `${category.value}`,
+					search: searchString.value,
+					category: category.value,
 				})
 			}, sec)
 		}
+
+		watch([searchString, category], ([searchString, category]) => {
+			const query = {}
+			if(searchString) {
+				query.search = searchString
+			}
+			if(category) {
+				query.category = category
+			}
+			router.replace({query})
+		})
 
 		onMounted(() => {
 			store.dispatch('categoryes/getCategoryes')
