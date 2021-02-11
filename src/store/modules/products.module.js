@@ -25,8 +25,13 @@ export default {
       commit('setLoading', true)
       const search = payload.search ? `&q=${payload.search}` : ''
       const category = payload.category && payload.category !== 'all' ? `&category=${payload.category}` : ''
-      const url = `/products?_sort=category,title&_order=desc,asc${search}${category}`
+      const page = payload.page ? `&_page=${payload.page}` : ''
+      const limit = payload.limit ? `&_limit=${payload.limit}` : ''
+      const url = `/products?_sort=category,title&_order=desc,asc${search}${category}${page}${limit}`
       const data = await requestAxios.get(url)
+
+      // console.log('link:', data.headers.link.split(', '))
+
       await commit('setProducts', data.data)
       commit('setLoading', false)
     },

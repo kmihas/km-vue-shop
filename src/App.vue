@@ -31,3 +31,23 @@ export default {
 	},
 }
 </script>
+
+<style>
+.page {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	min-height: 20rem;
+}
+
+.product-loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.img-table-preview {
+	width: 24px;
+	height: 24px;
+}
+</style>

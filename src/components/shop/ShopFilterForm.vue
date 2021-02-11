@@ -52,7 +52,7 @@ export default {
 		},
 	},
 	emits: ['search', 'changecat'],
-	setup(context) {
+	setup(_, context) {
 		return {
 			...useFilterForm(context),
 		}
