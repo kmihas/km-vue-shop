@@ -39,16 +39,27 @@ export default {
 			requared: true,
 			default: [],
 		},
+<<<<<<< HEAD
 		categories: {
+=======
+		categoryes: {
+>>>>>>> b9304e5ac8647de6123b0b53914328b12d0752c4
 			type: Array,
 			requared: true,
 		},
 	},
 	setup(props) {
 		const getCategory = (string) => {
+<<<<<<< HEAD
 			const idx = props.categories.findIndex((el) => el.type === string)
 			return props.categories[idx].title
 		}
+=======
+			const idx = props.categoryes.findIndex((el) => el.type === string)
+			return props.categoryes[idx].title
+		}
+
+>>>>>>> b9304e5ac8647de6123b0b53914328b12d0752c4
 		return {
 			getCategory,
 		}
