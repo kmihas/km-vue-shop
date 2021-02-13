@@ -1,11 +1,6 @@
 <template>
 	<div class="row col s12">
-		<ShopFilterForm
-			:categoryes="categoryes"
-			:category="category"
-			@search="search"
-			@changecat="changeCategory"
-		/>
+		<ShopFilterForm :categories="categories" v-model="filter" />
 		<ShopProductList :products="products" :loader="loading" />
 	</div>
 </template>

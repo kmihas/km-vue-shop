@@ -1,22 +1,22 @@
 <template>
 	<div class="container col s10 m10 x10">
 		<div class="page product-loader" v-if="loader">
-			<app-loader />
+			<AppLoader />
 		</div>
 		<div class="page" v-else>
-			<shop-product-card
+			<ShopProductCard
 				v-for="item in products"
 				:key="item.id"
 				:product="item"
 			/>
 		</div>
-		<shop-pagination v-if="!loader" />
+		<AppPagination v-if="!loader" />
 	</div>
 </template>
 
 <script>
 import ShopProductCard from './ShopProductCard'
-import ShopPagination from './ShopPagination'
+import AppPagination from '../ui/AppPagination'
 import AppLoader from '../ui/AppLoader'
 
 export default {
@@ -37,7 +37,7 @@ export default {
 	},
 	components: {
 		ShopProductCard,
-		ShopPagination,
+		AppPagination,
 		AppLoader,
 	},
 }

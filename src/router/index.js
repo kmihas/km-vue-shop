@@ -48,8 +48,8 @@ const routes = [
         component: () => import('../components/admin/AdminProducts')
       },
       {
-        path: 'categoryes',
-        component: () => import('../components/admin/AdminCategoryes')
+        path: 'categories',
+        component: () => import('../components/admin/AdminCategories')
       }
     ]
   },

@@ -7,7 +7,7 @@ export default {
   namespaced: true,
   state() {
     return {
-      token: localStorage.getItem(TOKEN_KEY)
+      token: localStorage.getItem(TOKEN_KEY) ?? ''
     }
   },
   mutations: {

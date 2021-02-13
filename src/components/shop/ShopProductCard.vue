@@ -11,7 +11,11 @@
 					<span class="">{{ product.title }}</span>
 				</div>
 				<div class="card-action">
-					<AppAddCart :product="product" />
+					<AppAddCart
+						:id="product.id"
+						:count="+product.count"
+						:cartCount="+count"
+					/>
 				</div>
 			</div>
 		</div>
@@ -19,7 +23,9 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 import AppAddCart from '../ui/AppAddCart'
+import { useStore } from 'vuex'
 
 export default {
 	props: {
@@ -28,8 +34,16 @@ export default {
 			requared: true,
 		},
 	},
-	setup() {
-		return {}
+	setup(props) {
+		const store = useStore()
+		const cart = computed(() => store.getters['cart/cart'])
+		const count = computed(() => {
+			return cart.value[props.product.id] ? cart.value[props.product.id] : 0
+		})
+
+		return {
+			count,
+		}
 	},
 	components: {
 		AppAddCart,

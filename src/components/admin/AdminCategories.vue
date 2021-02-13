@@ -1,10 +1,10 @@
 <template>
-	<h4>Перечень товаров</h4>
+	<h4>Категории категорий</h4>
 	<div class="page product-loader" v-if="loading">
 		<AppLoader />
 	</div>
 	<div v-else>
-		<AdminProductsTable :products="products" :categories="categories" />
+		<AdminCategoriesTable :categories="categories" />
 		<div class="center-align">
 			<AppPagination />
 		</div>
@@ -14,30 +14,26 @@
 <script>
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import AdminProductsTable from './AdminProductsTable'
+import AdminCategoriesTable from './AdminCategoriesTable'
 import AppPagination from '../ui/AppPagination'
 import AppLoader from '../ui/AppLoader'
 
 export default {
-	name: 'AdminsProducts',
+	name: 'AdminCategories',
 	setup() {
 		const store = useStore()
+		const loading = computed(() => store.getters['categories/loading'])
 		const categories = computed(() => store.getters['categories/categories'])
-		const products = computed(() => store.getters['products/products'])
-		const loading = computed(() => store.getters['products/loading'])
-
 		onMounted(() => {
 			store.dispatch('categories/getCategories')
-			store.dispatch('products/getProducts')
 		})
 		return {
-			loading,
-			products,
 			categories,
+			loading,
 		}
 	},
 	components: {
-		AdminProductsTable,
+		AdminCategoriesTable,
 		AppPagination,
 		AppLoader,
 	},

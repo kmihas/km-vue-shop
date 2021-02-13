@@ -5,16 +5,14 @@ export default {
   namespaced: true,
   state() {
     return {
-      cart: JSON.parse(localStorage.getItem(LOCAL_CART_KEY)) || {},
-      cartProducts: {},
-      products: [],
+      cart: JSON.parse(localStorage.getItem(LOCAL_CART_KEY)) ?? {},
+      cartProducts: [],
       loading: false
-
     }
   },
   mutations: {
-    setProducts(state, item) {
-      state.products = item
+    addCartProducts(state, item) {
+      state.cartProducts.push(item)
     },
     setCartProducts(state, item) {
       state.cartProducts = item
@@ -34,9 +32,9 @@ export default {
       if(+state.cart[id] > 1) {
         state.cart[id]--
       } else {
-        const idx = state.cartProducts.findIndex(el => +el.id === +id)
-        state.cartProducts.splice(idx, 1)
         delete state.cart[id]
+        const idx = state.cartProducts.findIndex(el => el.id === id)
+        state.cartProducts.splice(idx, 1)
       }
       localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart))
     },
@@ -46,31 +44,27 @@ export default {
     }
   },
   actions: {
-    async getPageProducts({commit}) {
-      commit('setLoading', true)
-      const data = await requestAxios.get('/products')
-      await commit('setProducts', data.data)
-      commit('setLoading', false)
-    },
-    async getCartProducts({commit, state}) {
-      commit('setLoading', true)
-      const url = Object.keys(state.cart).reduce((acc, id) => {
-        return acc += `id=${id}&`
-      }, '/products?')
-      const data = await requestAxios.get(url)
-      commit('setCartProducts', data.data)
-      commit('setLoading', false)
+    getCartProducts({commit, state, getters}) {
+      commit('setCartProducts', [])
+      const Cart = Object.keys(state.cart)
+      if(getters.cartCount)
+      {
+        commit('setLoading', true)
+        Cart.forEach(async (item) => {
+          const url = `/products/${item}.json`
+          const data = await requestAxios.get(url)
+          await commit('addCartProducts', {
+            id: item,
+            ...data.data
+          })
+          await commit('setLoading', false)
+        })
+      }
     }
   },
   getters: {
-    products(state) {
-      return state.products
-    },
     cart(state) {
       return state.cart
-    },
-    cartProducts(state) {
-      return state.cartProducts
     },
     cartCount(state) {
       return Object.keys(state.cart).reduce((acc, id) => {
@@ -79,6 +73,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    cartProducts(state) {
+      return state.cartProducts
     }
   }
 }

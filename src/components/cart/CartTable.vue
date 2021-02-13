@@ -11,7 +11,7 @@
 			<tr v-for="item in cartProducts" :key="item.id">
 				<td>{{ item.title }}</td>
 				<td>
-					<AppAmount :productId="+item.id" :count="+cart[item.id]" />
+					<AppAmount :productId="item.id" :count="+cart[item.id]" />
 					шт.
 				</td>
 				<td>{{ item.price }}</td>
@@ -21,7 +21,7 @@
 			<tr>
 				<td></td>
 				<td class="right-align">Всего:</td>
-				<td>{{ total }} руб.</td>
+				<td>{{}} руб.</td>
 			</tr>
 		</tfoot>
 	</table>
@@ -35,22 +35,22 @@ export default {
 	name: 'CartTable',
 	props: {
 		cartProducts: {
-			type: Object,
+			type: Array,
 		},
 		cart: {
 			type: Object,
 		},
 	},
 	setup(props) {
-		const total = computed(() => {
-			return Object.keys(props.cartProducts).reduce((acc, id) => {
-				const item = props.cartProducts[id]
-				return (acc += item.price * props.cart[item.id])
-			}, 0)
-		})
+		// const total = computed(() => {
+		// 	return Object.keys(props.cartProducts).reduce((acc, id) => {
+		// 		const item = props.cartProducts[id]
+		// 		return (acc += item.price * props.cart[item.id])
+		// 	}, 0)
+		// })
 
 		return {
-			total,
+			// total,
 		}
 	},
 	components: {

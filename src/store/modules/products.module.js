@@ -6,7 +6,11 @@ export default {
     return {
       products: [],
       product: {},
-      loading: false
+      loading: false,
+      filter: {
+        search: '',
+        category: ''
+      }
     }
   },
   mutations: {
@@ -19,30 +23,52 @@ export default {
     setLoading(state, item) {
       state.loading = item
     },
+    setFilter(state, item) {
+      state.filter = item
+    }
   },
   actions: {
-    async getProducts({commit}, payload = {}) {
+    async getProducts({commit}) {
       commit('setLoading', true)
-      const search = payload.search ? `&q=${payload.search}` : ''
-      const category = payload.category && payload.category !== 'all' ? `&category=${payload.category}` : ''
-      const url = `/products?_sort=category,title&_order=desc,asc${search}${category}`
+      const url = `/products.json`
       const data = await requestAxios.get(url)
-      await commit('setProducts', data.data)
+      if (data.data) {
+        const result = Object.keys(data.data).map((item) => {
+        return {
+            id: item,
+            ...data.data[item],
+          }
+        })
+        await commit('setProducts', result)
+      }
       commit('setLoading', false)
     },
     async getProductById({commit}, id) {
+      commit('setProduct', {})
       commit('setLoading', true)
-      const url = `/products/${id}`
+      const url = `/products/${id}.json`
       const data = await requestAxios.get(url)
-      await commit('setProduct', data.data)
+      await commit('setProduct', {
+        id: id,
+        ...data.data})
       commit('setLoading', false)
     }
   },
   getters: {
-    products(state) {
+    products(state){
+      const filtered1 = state.filter.category === ''
+        ? state.products
+        : state.products.filter(item => item.category === state.filter.category)
+
+      const filtered2 = state.filter.search === ''
+        ? filtered1
+        : filtered1.filter(item => {
+          return !!item.title.toLowerCase()
+            .includes(state.filter.search.toLowerCase(), 0)})
+
       return [
-        ...state.products.filter(el => +el.count !== 0),
-        ...state.products.filter(el => +el.count === 0)
+        ...filtered2.filter(el => +el.count !== 0),
+        ...filtered2.filter(el => +el.count === 0)
       ]
     },
     loading(state) {

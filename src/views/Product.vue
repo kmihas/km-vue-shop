@@ -4,7 +4,8 @@
 			<a class="btn-floating blue-grey darken-3" @click.prevent="onBack">
 				<i class="material-icons">arrow_back</i>
 			</a>
-			<div class="col s12 m6">
+			<AppLoader v-if="isLoading" />
+			<div class="col s12 m6" v-else>
 				<div class="card horizontal">
 					<div class="card-image">
 						<img :src="product.img" />
@@ -18,7 +19,11 @@
 							<p>Кол-во: {{ product.count }}</p>
 						</div>
 						<div class="card-action center-align">
-							<AppAddCart :product="product" />
+							<AppAddCart
+								:id="id"
+								:count="+product.count"
+								:cartCount="+cartCount"
+							/>
 						</div>
 					</div>
 				</div>
@@ -35,6 +40,7 @@ import { computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import AppAddCart from '../components/ui/AppAddCart'
+import AppLoader from '../components/ui/AppLoader'
 
 export default {
 	setup() {
@@ -43,6 +49,11 @@ export default {
 		const router = useRouter()
 		const id = computed(() => route.params.id)
 		const product = computed(() => store.getters['products/product'])
+		const isLoading = computed(() => store.getters['product/loading'])
+		const cart = computed(() => store.getters['cart/cart'])
+		const cartCount = computed(() => {
+			return cart.value[id.value] ? cart.value[id.value] : 0
+		})
 
 		const onBack = () => {
 			router.back()
@@ -54,12 +65,15 @@ export default {
 
 		return {
 			id,
+			cartCount,
 			onBack,
 			product,
+			isLoading,
 		}
 	},
 	components: {
 		AppAddCart,
+		AppLoader,
 	},
 }
 </script>

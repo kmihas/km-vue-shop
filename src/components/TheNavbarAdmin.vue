@@ -4,7 +4,7 @@
 			<router-link to="/" class="brand-logo">Панель администратора</router-link>
 			<ul id="nav-mobile" class="right">
 				<li><router-link to="/admin/products">Товары</router-link></li>
-				<li><router-link to="/admin/categoryes">Категории</router-link></li>
+				<li><router-link to="/admin/categories">Категории</router-link></li>
 				<li><a href="" @click.prevent="logout">Выход</a></li>
 			</ul>
 		</div>

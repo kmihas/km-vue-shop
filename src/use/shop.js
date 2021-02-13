@@ -1,63 +1,33 @@
 import { computed, onMounted, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
 export function useShop() {
-		const TIMER = process.env.VUE_APP_TIMER_SEC
-		const store = useStore()
-		const route = useRoute()
-		const router = useRouter()
+	const store = useStore()
+	const route = useRoute()
 
-		const timer = ref('')
-		const searchString = ref(route.query.search || '')
-		const category = ref(route.query.category || '')
+	const filter = ref({
+		search: route.query.search ?? '',
+		category: route.query.category ?? ''
+	})
 
-		const products = computed(() => store.getters['products/products'])
-		const loading = computed(() => store.getters['products/loading'])
-		const categoryes = computed(() => store.getters['categoryes/categoryes'])
+	const products = computed(() => store.getters['products/products'])
+	const loading = computed(() => store.getters['products/loading'])
+	const categories = computed(() => store.getters['categories/categories'])
 
-		const search = async (string) => {
-			searchString.value = string
-			searchProducts(TIMER)
-		}
+	watch(filter, (filter) => {
+		store.commit('products/setFilter', filter)
+	})
 
-		const changeCategory = async (cat) => {
-			category.value = cat
-			searchProducts()
-		}
+	onMounted(() => {
+		store.dispatch('categories/getCategories')
+		store.dispatch('products/getProducts')
+	})
 
-		const searchProducts = (sec) => {
-			clearTimeout(timer.value)
-			timer.value = setTimeout(() => {
-				store.dispatch('products/getProducts', {
-					search: searchString.value,
-					category: category.value,
-				})
-			}, sec)
-		}
-
-		watch([searchString, category], ([searchString, category]) => {
-			const query = {}
-			if(searchString) {
-				query.search = searchString
-			}
-			if(category) {
-				query.category = category
-			}
-			router.replace({query})
-		})
-
-		onMounted(() => {
-			store.dispatch('categoryes/getCategoryes')
-			searchProducts()
-		})
-
-		return {
-			search,
-			category,
-			categoryes,
-			changeCategory,
-			products,
-			loading,
-		}
+	return {
+		filter,
+		categories,
+		products,
+		loading,
+	}
 }

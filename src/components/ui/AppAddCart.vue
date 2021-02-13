@@ -1,14 +1,14 @@
 <template>
-	<div v-if="product.count">
+	<div v-if="count">
 		<button
 			class="btn-small blue-grey darken-2 waves-effect"
-			v-if="!count"
-			@click.prevent="addToCart(product.id)"
+			v-if="!cartCount"
+			@click.prevent="addToCart(id)"
 		>
 			В корзину
 		</button>
 		<div v-else>
-			<AppAmount :productId="+product.id" :count="+count" />
+			<AppAmount :productId="id" :count="+cartCount" />
 		</div>
 	</div>
 	<div v-else>
@@ -17,32 +17,33 @@
 </template>
 
 <script>
-import { computed } from 'vue'
 import { useStore } from 'vuex'
 import AppAmount from './AppAmount'
 
 export default {
 	props: {
-		product: {
-			type: Object,
+		id: {
+			type: String,
+			required: true,
+		},
+		count: {
+			type: Number,
+			required: true,
+		},
+		cartCount: {
+			type: Number,
 			required: true,
 		},
 	},
-	setup(props) {
+	setup() {
 		const store = useStore()
-		const cart = computed(() => store.getters['cart/cart'])
-		const count = computed(() => {
-			return cart.value[props.product.id] ? cart.value[props.product.id] : 0
-		})
 
 		const addToCart = (id) => {
 			store.commit('cart/addToCart', id)
-			store.dispatch('cart/getCartProducts')
 		}
 
 		return {
 			addToCart,
-			count,
 		}
 	},
 	components: {

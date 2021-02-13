@@ -21,7 +21,7 @@ export default {
 	name: 'Amount',
 	props: {
 		productId: {
-			type: Number,
+			type: String,
 			required: true,
 		},
 		count: {

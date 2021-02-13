@@ -1,15 +1,15 @@
 <template>
 	<div class="card">
 		<div class="card-content">
-			<cart-title :cartClear="cartClear" />
-			<cart-table
-				v-if="!cartClear && !loading"
-				:cartProducts="cartProducts"
-				:cart="cart"
-			/>
-			<app-loader v-if="loading" />
+			<CartTitle :cartClear="!cartClear" />
+			<div class="page product-loader" v-if="loading">
+				<AppLoader />
+			</div>
+			<div v-else>
+				<CartTable v-if="cartClear" :cartProducts="cartProducts" :cart="cart" />
+			</div>
 		</div>
-		<div class="card-action right-align" v-if="!cartClear && !loading">
+		<div class="card-action right-align" v-if="cartClear && !loading">
 			<button class="btn blue-grey darken-2 waves-effect">
 				Оплатить
 			</button>
