@@ -42,3 +42,18 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+.page {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	min-height: 20rem;
+}
+
+.product-loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+</style>

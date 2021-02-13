@@ -49,7 +49,6 @@ export default {
 			type: Object,
 		},
 	},
-<<<<<<< HEAD
 	emits: ['update:modelValue'],
 	setup({ modelValue }, context) {
 		const router = useRouter()
@@ -89,10 +88,6 @@ export default {
 			M.updateTextFields()
 		})
 
-=======
-	emits: ['search', 'changecat'],
-	setup(_, context) {
->>>>>>> b9304e5ac8647de6123b0b53914328b12d0752c4
 		return {
 			search,
 			category,

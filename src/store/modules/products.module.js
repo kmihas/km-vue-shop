@@ -30,7 +30,6 @@ export default {
   actions: {
     async getProducts({commit}) {
       commit('setLoading', true)
-<<<<<<< HEAD
       const url = `/products.json`
       const data = await requestAxios.get(url)
       if (data.data) {
@@ -42,18 +41,6 @@ export default {
         })
         await commit('setProducts', result)
       }
-=======
-      const search = payload.search ? `&q=${payload.search}` : ''
-      const category = payload.category && payload.category !== 'all' ? `&category=${payload.category}` : ''
-      const page = payload.page ? `&_page=${payload.page}` : ''
-      const limit = payload.limit ? `&_limit=${payload.limit}` : ''
-      const url = `/products?_sort=category,title&_order=desc,asc${search}${category}${page}${limit}`
-      const data = await requestAxios.get(url)
-
-      // console.log('link:', data.headers.link.split(', '))
-
-      await commit('setProducts', data.data)
->>>>>>> b9304e5ac8647de6123b0b53914328b12d0752c4
       commit('setLoading', false)
     },
     async getProductById({commit}, id) {

@@ -35,19 +35,11 @@ export default {
 	flex-wrap: wrap;
 	min-height: 20rem;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> b9304e5ac8647de6123b0b53914328b12d0752c4
 .product-loader {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> b9304e5ac8647de6123b0b53914328b12d0752c4
 .img-table-preview {
 	width: 24px;
 	height: 24px;
