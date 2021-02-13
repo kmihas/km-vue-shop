@@ -4,34 +4,43 @@
 			<a class="btn-floating blue-grey darken-3" @click.prevent="onBack">
 				<i class="material-icons">arrow_back</i>
 			</a>
-			<AppLoader v-if="isLoading" />
-			<div class="col s12 m6" v-else>
-				<div class="card horizontal">
-					<div class="card-image">
-						<img :src="product.img" />
+		</div>
+		<div v-if="isLoading">
+			<AppLoader />
+		</div>
+		<div v-else class="col s12 m6">
+			<div class="card horizontal" v-if="product">
+				<div class="card-image">
+					<img :src="product.img" />
+				</div>
+				<div class="card-stacked">
+					<div class="card-content">
+						<div class="card-title">
+							{{ product.title }}
+						</div>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+							dignissimos ipsam nemo, omnis quidem odit velit necessitatibus,
+							tempore, laboriosam eius animi eligendi delectus excepturi facere
+							harum eum sit consequuntur tempora neque laudantium consectetur
+							deleniti modi praesentium repellat.
+						</p>
+						<p>В наличии: {{ product.count }}</p>
+						<p>Цена: {{ product.price }} руб.</p>
 					</div>
-					<div class="card-stacked center-align">
-						<div class="card-content">
-							<span class="card-title">{{ product.title }}</span>
-						</div>
-						<div>
-							<p>Цена: {{ product.price }} руб.</p>
-							<p>Кол-во: {{ product.count }}</p>
-						</div>
-						<div class="card-action center-align">
-							<AppAddCart
-								:id="id"
-								:count="+product.count"
-								:cartCount="+cartCount"
-							/>
-						</div>
+					<div class="card-action center-align">
+						<AppAddCart
+							:id="id"
+							:count="+product.count"
+							:cartCount="+cartCount"
+						/>
 					</div>
 				</div>
 			</div>
+			<h3 class="center-align" v-else>
+				Товар не найден.
+			</h3>
 		</div>
-		<h3 class="center-align" v-else>
-			Товар не найден.
-		</h3>
 	</div>
 </template>
 
@@ -49,7 +58,7 @@ export default {
 		const router = useRouter()
 		const id = computed(() => route.params.id)
 		const product = computed(() => store.getters['products/product'])
-		const isLoading = computed(() => store.getters['product/loading'])
+		const isLoading = computed(() => store.getters['products/loading'])
 		const cart = computed(() => store.getters['cart/cart'])
 		const cartCount = computed(() => {
 			return cart.value[id.value] ? cart.value[id.value] : 0

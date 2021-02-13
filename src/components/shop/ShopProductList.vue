@@ -9,9 +9,9 @@
 				:key="item.id"
 				:product="item"
 			/>
-			<div>
-				<AppPagination />
-			</div>
+		</div>
+		<div class="center-align" v-if="!loader">
+			<AppPagination />
 		</div>
 	</div>
 </template>
