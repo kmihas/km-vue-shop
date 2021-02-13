@@ -17,7 +17,10 @@
 						>
 					</router-link>
 				</li>
-				<li><a href="" @click.prevent="logout">Выход</a></li>
+				<li v-if="!isAuth"><a href="" @click.prevent="logout">Выход</a></li>
+				<li v-else>
+					<router-link to="/auth">Войти</router-link>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -38,13 +41,15 @@ export default {
 			store.commit('auth/logout')
 			router.push('/auth')
 		}
-
-		console.log('path', route.path)
+		const isAuth = computed(() => {
+			store.getters['auth/isAutenticated']
+		})
 
 		const cartCount = computed(() => store.getters['cart/cartCount'])
 
 		return {
 			cartCount,
+			isAuth,
 			logout,
 			route,
 		}
