@@ -3,8 +3,10 @@
 		<div class="nav-wrapper blue-grey darken-3">
 			<router-link to="/" class="brand-logo">Продукты</router-link>
 			<ul id="nav-mobile" class="right">
-				<li><router-link to="/shop">Магазин</router-link></li>
-				<li>
+				<li :class="{ active: route.path === '/shop' || route.path === '/' }">
+					<router-link to="/shop">Магазин</router-link>
+				</li>
+				<li :class="{ active: route.path === '/cart' }">
 					<router-link to="/cart">
 						Корзина
 						<span
@@ -22,7 +24,7 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 
@@ -30,17 +32,21 @@ export default {
 	name: 'Navbar',
 	setup() {
 		const store = useStore()
+		const route = useRoute()
 		const router = useRouter()
 		const logout = () => {
 			store.commit('auth/logout')
 			router.push('/auth')
 		}
 
+		console.log('path', route.path)
+
 		const cartCount = computed(() => store.getters['cart/cartCount'])
 
 		return {
 			cartCount,
 			logout,
+			route,
 		}
 	},
 }
