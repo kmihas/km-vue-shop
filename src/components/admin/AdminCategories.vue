@@ -5,9 +5,6 @@
 	</div>
 	<div v-else>
 		<AdminCategoriesTable :categories="categories" />
-		<div class="center-align">
-			<AppPagination />
-		</div>
 	</div>
 </template>
 
@@ -15,7 +12,6 @@
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import AdminCategoriesTable from './AdminCategoriesTable'
-import AppPagination from '../ui/AppPagination'
 import AppLoader from '../ui/AppLoader'
 
 export default {
@@ -34,7 +30,6 @@ export default {
 	},
 	components: {
 		AdminCategoriesTable,
-		AppPagination,
 		AppLoader,
 	},
 }

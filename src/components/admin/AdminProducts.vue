@@ -6,14 +6,15 @@
 	<div v-else>
 		<AdminProductsTable :products="products" :categories="categories" />
 		<div class="center-align">
-			<AppPagination />
+			<AppPagination :curr="+pageCurr" :last="+pageLast" v-if="show" />
 		</div>
 	</div>
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 import AdminProductsTable from './AdminProductsTable'
 import AppPagination from '../ui/AppPagination'
 import AppLoader from '../ui/AppLoader'
@@ -22,18 +23,36 @@ export default {
 	name: 'AdminsProducts',
 	setup() {
 		const store = useStore()
+		const route = useRoute()
 		const categories = computed(() => store.getters['categories/categories'])
 		const products = computed(() => store.getters['products/products'])
 		const loading = computed(() => store.getters['products/loading'])
+		const countProducts = computed(
+			() => store.getters['products/productsFiltered'].length
+		)
+		const perPage = computed(() => store.getters['products/perPage'])
+		const pageCurr = computed(() => route.query.page ?? 1)
+		const pageLast = computed(() => {
+			return Math.ceil(countProducts.value / perPage.value)
+		})
+		const show = computed(() => products.value.length)
+
+		watch(pageCurr, (newVal) => {
+			store.commit('products/setPage', newVal)
+		})
 
 		onMounted(() => {
 			store.dispatch('categories/getCategories')
 			store.dispatch('products/getProducts')
 		})
+
 		return {
 			loading,
 			products,
 			categories,
+			pageCurr,
+			pageLast,
+			show,
 		}
 	},
 	components: {
