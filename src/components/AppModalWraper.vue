@@ -1,24 +1,31 @@
 <template>
 	<teleport to="body">
-		<transition name="fade">
-			<div class="modal__wrap">
-				<div class="modal__shadow"></div>
-				<div class="modal__box">
-					<div class="modal_close right">
-						<i class="material-icons">close</i>
-					</div>
-					<slot />
+		<div class="modal__wrap">
+			<div class="modal__shadow" @click.prevent="close"></div>
+			<div class="modal__box">
+				<div class="modal_close right" @click.prevent="close">
+					<i class="material-icons">close</i>
 				</div>
+				<slot />
 			</div>
-		</transition>
+		</div>
 	</teleport>
 </template>
 
 <script>
+import { useStore } from 'vuex'
+
 export default {
 	name: 'AppModalWraper',
 	setup() {
-		return {}
+		const store = useStore()
+		const close = () => {
+			store.commit('setModal', false)
+		}
+
+		return {
+			close,
+		}
 	},
 }
 </script>
@@ -55,7 +62,7 @@ export default {
 	left: 50%;
 	padding: 10px;
 	transform: translate(-50%, -50%);
-	min-width: 200px;
+	min-width: 400px;
 	min-height: 300px;
 	z-index: 102;
 }

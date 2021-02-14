@@ -4,7 +4,9 @@
 		<AppLoader />
 	</div>
 	<div v-else>
-		<AdminProductsTable :products="products" :categories="categories" />
+		<suspense>
+			<AdminProductsTable :products="products" :categories="categories" />
+		</suspense>
 		<div class="center-align">
 			<AppPagination :curr="+pageCurr" :last="+pageLast" v-if="show" />
 		</div>
