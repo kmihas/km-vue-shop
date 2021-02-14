@@ -21,7 +21,7 @@
 			<tr>
 				<td></td>
 				<td class="right-align">Всего:</td>
-				<td>{{}} руб.</td>
+				<td>{{ total }} руб.</td>
 			</tr>
 		</tfoot>
 	</table>
@@ -42,15 +42,15 @@ export default {
 		},
 	},
 	setup(props) {
-		// const total = computed(() => {
-		// 	return Object.keys(props.cartProducts).reduce((acc, id) => {
-		// 		const item = props.cartProducts[id]
-		// 		return (acc += item.price * props.cart[item.id])
-		// 	}, 0)
-		// })
+		const total = computed(() => {
+			return Object.keys(props.cartProducts).reduce((acc, id) => {
+				const item = props.cartProducts[id]
+				return (acc += item.price * props.cart[item.id])
+			}, 0)
+		})
 
 		return {
-			// total,
+			total,
 		}
 	},
 	components: {

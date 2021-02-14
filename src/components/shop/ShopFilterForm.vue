@@ -25,18 +25,32 @@
 				</li>
 			</ul>
 		</div>
-		<button
-			class="btn-small blue-grey darken-2 waves-effect"
-			@click="clearFilter"
-		>
-			Очистить
-		</button>
+		<div class="input-field col s12">
+			<select v-model="perPageCurr">
+				<option
+					v-for="item in [5, 10, 20, 50]"
+					:key="item"
+					:class="{ selected: +item === +perPage }"
+					>{{ item }}</option
+				>
+			</select>
+			<label>Товаров на странице:</label>
+		</div>
+		<div class="col s12">
+			<button
+				class="btn-small blue-grey darken-2 waves-effect"
+				@click="clearFilter"
+			>
+				Очистить
+			</button>
+		</div>
 	</div>
 </template>
 
 <script>
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
 	name: 'ShopFilter',
@@ -51,9 +65,13 @@ export default {
 	},
 	emits: ['update:modelValue'],
 	setup({ modelValue }, context) {
+		const store = useStore()
 		const router = useRouter()
 		const search = ref(modelValue.search)
 		const category = ref(modelValue.category)
+		const page = ref(modelValue.page)
+		const perPage = computed(() => store.getters['products/perPage'])
+		const perPageCurr = ref(perPage.value)
 
 		const changeSearch = (event) => {
 			search.value = event.target.value
@@ -69,7 +87,7 @@ export default {
 			M.updateTextFields()
 		}
 
-		watch([search, category], ([search, category]) => {
+		watch([search, category, perPageCurr], ([search, category, perPage]) => {
 			const query = {}
 			if (search) {
 				query.search = search
@@ -77,14 +95,20 @@ export default {
 			if (category) {
 				query.category = category
 			}
+			if (perPage) {
+				query.page = '1'
+				store.commit('products/setPerPage', +perPage)
+			}
 			router.replace({ query })
 			context.emit('update:modelValue', {
 				search,
 				category,
+				page,
 			})
 		})
 
 		onMounted(() => {
+			M.FormSelect.init(document.querySelectorAll('select'))
 			M.updateTextFields()
 		})
 
@@ -94,6 +118,8 @@ export default {
 			changeSearch,
 			changeCategory,
 			clearFilter,
+			perPage,
+			perPageCurr,
 		}
 	},
 }

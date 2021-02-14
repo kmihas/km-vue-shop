@@ -9,14 +9,22 @@
 				:key="item.id"
 				:product="item"
 			/>
+			<div v-if="!show">
+				<h4>
+					Товаров указанных в поиске нет.
+				</h4>
+			</div>
 		</div>
 		<div class="center-align" v-if="!loader">
-			<AppPagination />
+			<AppPagination :curr="+pageCurr" :last="+pageLast" v-if="show" />
 		</div>
 	</div>
 </template>
 
 <script>
+import { computed, watch, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 import ShopProductCard from './ShopProductCard'
 import AppPagination from '../ui/AppPagination'
 import AppLoader from '../ui/AppLoader'
@@ -34,8 +42,33 @@ export default {
 			default: false,
 		},
 	},
-	setup() {
-		return {}
+	setup(props) {
+		const store = useStore()
+		const route = useRoute()
+		const countProducts = computed(
+			() => store.getters['products/productsFiltered'].length
+		)
+		const perPage = computed(() => store.getters['products/perPage'])
+		const pageCurr = computed(() => route.query.page ?? 1)
+		const pageLast = computed(() => {
+			return Math.ceil(countProducts.value / perPage.value)
+		})
+
+		const show = computed(() => props.products.length)
+
+		watch(pageCurr, (newVal) => {
+			store.commit('products/setPage', newVal)
+		})
+
+		onMounted(() => {
+			store.commit('products/setPage', pageCurr)
+		})
+
+		return {
+			pageCurr,
+			pageLast,
+			show,
+		}
 	},
 	components: {
 		ShopProductCard,

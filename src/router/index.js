@@ -10,7 +10,11 @@ const routes = [
     alias: '/',
     name: 'shop',
     component: Shop,
-    props: route => ({ query: route.query.search, query: route.query.category }),
+    props: route => ({
+      query: route.query.search,
+      query: route.query.category,
+      query: route.query.page
+    }),
     meta: {
       layout: 'main',
       auth: false
@@ -38,6 +42,11 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: () => import('../views/Admin'),
+    props: route => ({
+      query: route.query.search,
+      query: route.query.category,
+      query: route.query.page
+    }),
     meta: {
       layout: 'admin',
       auth: true

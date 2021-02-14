@@ -7,8 +7,9 @@ export function useShop() {
 	const route = useRoute()
 
 	const filter = ref({
-		search: route.query.search ?? '',
-		category: route.query.category ?? ''
+			search: route.query.search ?? '',
+			category: route.query.category ?? '',
+			page: route.query.page ?? '1'
 	})
 
 	const products = computed(() => store.getters['products/products'])
@@ -20,6 +21,7 @@ export function useShop() {
 	})
 
 	onMounted(() => {
+		store.commit('products/setFilter', filter)
 		store.dispatch('categories/getCategories')
 		store.dispatch('products/getProducts')
 	})
