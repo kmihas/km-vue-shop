@@ -1,7 +1,16 @@
 <template>
 	<nav class="row">
 		<div class="nav-wrapper blue-grey darken-3">
-			<router-link to="/" class="brand-logo">Панель администратора</router-link>
+			<ul id="nav-mobile" class="left">
+				<li>
+					<router-link to="/">
+						<i class="material-icons">arrow_back</i>
+					</router-link>
+				</li>
+			</ul>
+			<router-link to="/admin" class="brand-logo"
+				>Панель администратора</router-link
+			>
 			<ul id="nav-mobile" class="right">
 				<li :class="{ active: route.path === '/admin/products' }">
 					<router-link to="/admin/products">Товары</router-link>
