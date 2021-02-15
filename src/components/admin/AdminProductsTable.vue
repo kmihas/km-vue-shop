@@ -34,15 +34,14 @@
 					<i
 						class="material-icons"
 						@click.prevent="showModal('AdminProductEdit', item)"
-						>edit</i
 					>
+						edit
+					</i>
 				</td>
 				<td>
-					<i
-						class="material-icons"
-						@click.prevent="showModal('AdminProductDelete', item)"
-						>delete</i
-					>
+					<i class="material-icons" @click.prevent="deleteProduct(item.id)">
+						delete
+					</i>
 				</td>
 			</tr>
 		</tbody>
@@ -59,9 +58,8 @@
 <script>
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
-import AppModalWrapper from '../AppModalWraper'
+import AppModalWrapper from '../AppModalWrapper'
 import AdminProductEdit from './AdminProductEdit'
-import AdminProductDelete from './AdminProductDelete'
 
 export default {
 	name: 'AdminProductsTable',
@@ -90,18 +88,25 @@ export default {
 			const idx = props.categories.findIndex((el) => el.type === string)
 			return props.categories[idx].title
 		}
+
+		const deleteProduct = (id) => {
+			store.dispatch('products/deleteProduct', id)
+			store.dispatch('products/getProducts')
+			store.commit('setModal', false)
+		}
+
 		return {
 			isModal,
 			getCategory,
 			showModal,
 			product,
 			modalComponent,
+			deleteProduct,
 		}
 	},
 	components: {
 		AppModalWrapper,
 		AdminProductEdit,
-		AdminProductDelete,
 	},
 }
 </script>

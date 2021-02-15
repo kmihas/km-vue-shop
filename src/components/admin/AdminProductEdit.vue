@@ -113,13 +113,13 @@ export default {
 			}, false)
 		})
 
-		const save = () => {
+		const save = async () => {
 			if (editedProduct.id) {
-				store.dispatch('products/saveProductById', editedProduct)
+				await store.dispatch('products/saveProductById', editedProduct)
 			} else {
 				const body = editedProduct
 				delete body.id
-				store.dispatch('products/saveProduct', body)
+				await store.dispatch('products/saveProduct', body)
 			}
 			store.dispatch('products/getProducts')
 			store.commit('setModal', false)
