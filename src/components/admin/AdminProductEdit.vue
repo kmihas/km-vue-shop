@@ -114,7 +114,15 @@ export default {
 		})
 
 		const save = () => {
-			store.dispatch('products/saveProductById', editedProduct)
+			if (editedProduct.id) {
+				store.dispatch('products/saveProductById', editedProduct)
+			} else {
+				const body = editedProduct
+				delete body.id
+				store.dispatch('products/saveProduct', body)
+			}
+			store.dispatch('products/getProducts')
+			store.commit('setModal', false)
 		}
 
 		onMounted(() => {

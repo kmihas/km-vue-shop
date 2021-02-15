@@ -53,12 +53,16 @@ const routes = [
     },
     children: [
       {
+        path: '',
+        component: () => import('../components/admin/AdminHome'),
+      },
+      {
         path: 'products',
-        component: () => import('../components/admin/AdminProducts')
+        component: () => import('../components/admin/AdminProducts'),
       },
       {
         path: 'categories',
-        component: () => import('../components/admin/AdminCategories')
+        component: () => import('../components/admin/AdminCategories'),
       }
     ]
   },

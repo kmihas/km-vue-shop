@@ -8,7 +8,14 @@
 				<th>Изображение</th>
 				<th>Кол-во</th>
 				<th>Цена</th>
-				<th></th>
+				<th>
+					<i
+						class="material-icons"
+						@click.prevent="showModal('AdminProductEdit', {})"
+					>
+						add
+					</i>
+				</th>
 				<th></th>
 			</tr>
 		</thead>

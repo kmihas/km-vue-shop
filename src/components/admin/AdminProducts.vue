@@ -43,9 +43,13 @@ export default {
 			store.commit('products/setPage', newVal)
 		})
 
+		const load = async () => {
+			await store.dispatch('categories/getCategories')
+			await store.dispatch('products/getProducts')
+		}
+
 		onMounted(() => {
-			store.dispatch('categories/getCategories')
-			store.dispatch('products/getProducts')
+			load()
 		})
 
 		return {

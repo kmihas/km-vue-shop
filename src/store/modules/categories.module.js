@@ -31,6 +31,20 @@ export default {
       }
       commit('setLoading', false)
     },
+    async saveCategoryById({commit}, item) {
+      const url = `/categories/${item.id}.json`
+      const body = {...item}
+      delete body.id
+      await requestAxios.put(url, body)
+    },
+    async saveCategory({commit}, item) {
+      const url = '/categories.json'
+      await requestAxios.post(url, item)
+    },
+    async deleteCategory({commit}, item) {
+      const url = `/categories/${item}.json`
+      await requestAxios.delete(url)
+    }
   },
   getters: {
     categories(state) {

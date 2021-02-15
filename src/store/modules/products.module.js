@@ -66,6 +66,14 @@ export default {
       const body = {...item}
       delete body.id
       await requestAxios.put(url, body)
+    },
+    async saveProduct({commit}, item) {
+      const url = '/products.json'
+      await requestAxios.post(url, item)
+    },
+    async deleteProduct({commit}, item) {
+      const url = `/products/${item}.json`
+      await requestAxios.delete(url)
     }
   },
   getters: {
