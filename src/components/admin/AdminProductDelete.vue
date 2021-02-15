@@ -1,13 +1,13 @@
 <template>
-	<div>удаляем товар - {{ id }}</div>
+	<div>удаляем товар: {{ product.id }}</div>
 </template>
 
 <script>
 export default {
 	name: 'AdminProductDelete',
 	props: {
-		id: {
-			type: String,
+		product: {
+			type: Object,
 			required: true,
 		},
 	},

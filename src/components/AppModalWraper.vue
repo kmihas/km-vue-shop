@@ -57,6 +57,7 @@ export default {
 
 .modal__box {
 	background-color: white;
+	border-radius: 5px;
 	position: fixed;
 	top: 50%;
 	left: 50%;

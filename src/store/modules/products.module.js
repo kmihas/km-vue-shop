@@ -60,6 +60,12 @@ export default {
         id: id,
         ...data.data})
       commit('setLoading', false)
+    },
+    async saveProductById({commit}, item) {
+      const url = `/products/${item.id}.json`
+      const body = {...item}
+      delete body.id
+      await requestAxios.put(url, body)
     }
   },
   getters: {

@@ -30,6 +30,7 @@
 				<option
 					v-for="item in [5, 10, 20, 50]"
 					:key="item"
+					:value="+item"
 					:class="{ selected: +item === +perPage }"
 					>{{ item }}</option
 				>

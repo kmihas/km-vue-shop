@@ -26,14 +26,14 @@
 				<td>
 					<i
 						class="material-icons"
-						@click.prevent="showModal('AdminProductEdit', item.id)"
+						@click.prevent="showModal('AdminProductEdit', item)"
 						>edit</i
 					>
 				</td>
 				<td>
 					<i
 						class="material-icons"
-						@click.prevent="showModal('AdminProductDelete', item.id)"
+						@click.prevent="showModal('AdminProductDelete', item)"
 						>delete</i
 					>
 				</td>
@@ -41,7 +41,11 @@
 		</tbody>
 	</table>
 	<AppModalWrapper v-if="isModal">
-		<component :is="modalComponent" :id="itemId" />
+		<component
+			:is="modalComponent"
+			:product="product"
+			:categories="categories"
+		/>
 	</AppModalWrapper>
 </template>
 
@@ -68,11 +72,11 @@ export default {
 	setup(props) {
 		const store = useStore()
 		const isModal = computed(() => store.getters['showModal'])
-		const itemId = ref('')
+		const product = ref('')
 		const modalComponent = ref('')
-		const showModal = (component, num) => {
+		const showModal = (component, item) => {
 			modalComponent.value = component
-			itemId.value = num
+			product.value = item
 			store.commit('setModal', true)
 		}
 		const getCategory = (string) => {
@@ -83,7 +87,7 @@ export default {
 			isModal,
 			getCategory,
 			showModal,
-			itemId,
+			product,
 			modalComponent,
 		}
 	},
