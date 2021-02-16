@@ -1,5 +1,5 @@
 <template>
-	<AppModalWrapper @close="$emit('close')">
+	<AppModalWrapper @close="close">
 		<div class="center-align">
 			<h5>Редактирование категории</h5>
 		</div>
@@ -39,15 +39,15 @@
 		</div>
 	</AppModalWrapper>
 	<AppConfirm
-		title="Вы не сохранили изменения, закрыть?"
+		title="Вы внесли изменения, но не сохранили. Закрыть?"
 		v-if="confirm"
 		@reject="confirm = false"
-		@confirm="confirm = true"
+		@confirm="$emit('close')"
 	/>
 </template>
 
 <script>
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import AppModalWrapper from '../AppModalWrapper'
 import AppConfirm from '../ui/AppConfirm'
@@ -96,6 +96,10 @@ export default {
 			context.emit('close')
 		}
 
+		const close = () => {
+			change.value ? (confirm.value = true) : context.emit('close')
+		}
+
 		onMounted(() => {
 			M.updateTextFields()
 		})
@@ -105,6 +109,7 @@ export default {
 			save,
 			change,
 			confirm,
+			close,
 		}
 	},
 	components: {
