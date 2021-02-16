@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .row {
-	width: 14rem;
+	width: 15rem;
 	margin: 0.1rem;
 	text-align: center;
 }

@@ -81,7 +81,6 @@ export default {
 <style scoped>
 .page {
 	display: flex;
-	justify-content: space-around;
 	flex-wrap: wrap;
 	min-height: 20rem;
 }

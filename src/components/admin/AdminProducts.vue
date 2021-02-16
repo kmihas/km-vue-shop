@@ -6,13 +6,14 @@
 			<AppLoader />
 		</div>
 		<div v-else>
-			<AdminProductsTable :products="products" :categories="categories" />
-			<AppPagination
-				class="center-align"
-				:curr="+pageCurr"
-				:last="+pageLast"
-				v-if="show"
-			/>
+			<AdminProductsTable :products="products" :categories="categories">
+				<AppPagination
+					class="center-align"
+					:curr="+pageCurr"
+					:last="+pageLast"
+					v-if="show"
+				/>
+			</AdminProductsTable>
 		</div>
 		<div class="center-align" v-if="!show ?? !loading">
 			<h5>
