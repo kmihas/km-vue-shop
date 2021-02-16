@@ -13,19 +13,12 @@ if(process.env.NODE_ENV === 'development') {
 export default createStore({
   // plugins,
   state: {
-    showModal: false
   },
   mutations: {
-    setModal(state, item) {
-      state.showModal = item
-    }
   },
   actions: {
   },
   getters: {
-    showModal(state) {
-      return state.showModal
-    }
   },
   modules: {
     auth,

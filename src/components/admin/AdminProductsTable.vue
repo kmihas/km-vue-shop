@@ -9,10 +9,7 @@
 				<th>Кол-во</th>
 				<th>Цена</th>
 				<th>
-					<i
-						class="material-icons"
-						@click.prevent="showModal('AdminProductEdit', {})"
-					>
+					<i class="material-icons" @click.prevent="toEdit({})">
 						add
 					</i>
 				</th>
@@ -31,35 +28,37 @@
 				<td>{{ item.count }}</td>
 				<td>{{ item.price }}</td>
 				<td>
-					<i
-						class="material-icons"
-						@click.prevent="showModal('AdminProductEdit', item)"
-					>
+					<i class="material-icons" @click.prevent="toEdit(item)">
 						edit
 					</i>
 				</td>
 				<td>
-					<i class="material-icons" @click.prevent="deleteProduct(item.id)">
+					<i class="material-icons" @click.prevent="confirmDelete(item)">
 						delete
 					</i>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-	<AppModalWrapper v-if="isModal">
-		<component
-			:is="modalComponent"
-			:product="product"
-			:categories="categories"
-		/>
-	</AppModalWrapper>
+	<AdminProductEdit
+		:product="product"
+		:categories="categories"
+		v-if="isEdit"
+		@close="isEdit = false"
+	/>
+	<AppConfirm
+		:title="confirmTitle"
+		v-if="confirm"
+		@reject="confirm = false"
+		@confirm="deleteProduct(confirmItem.id)"
+	/>
 </template>
 
 <script>
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
-import AppModalWrapper from '../AppModalWrapper'
 import AdminProductEdit from './AdminProductEdit'
+import AppConfirm from '../ui/AppConfirm'
 
 export default {
 	name: 'AdminProductsTable',
@@ -76,14 +75,17 @@ export default {
 	},
 	setup(props) {
 		const store = useStore()
-		const isModal = computed(() => store.getters['showModal'])
+		const confirm = ref(false)
+		const confirmTitle = ref('')
+		const confirmItem = ref({})
+		const isEdit = ref(false)
 		const product = ref('')
-		const modalComponent = ref('')
-		const showModal = (component, item) => {
-			modalComponent.value = component
+
+		const toEdit = (item) => {
 			product.value = item
-			store.commit('setModal', true)
+			isEdit.value = true
 		}
+
 		const getCategory = (string) => {
 			const idx = props.categories.findIndex((el) => el.type === string)
 			return props.categories[idx].title
@@ -92,21 +94,30 @@ export default {
 		const deleteProduct = (id) => {
 			store.dispatch('products/deleteProduct', id)
 			store.dispatch('products/getProducts')
-			store.commit('setModal', false)
+			confirm.value = false
+		}
+
+		const confirmDelete = (item) => {
+			confirmTitle.value = `Вы уверены, что хотите удалить товар "${item.title}" ?`
+			confirmItem.value = item
+			confirm.value = true
 		}
 
 		return {
-			isModal,
+			confirm,
+			confirmTitle,
+			confirmItem,
+			isEdit,
+			toEdit,
 			getCategory,
-			showModal,
 			product,
-			modalComponent,
 			deleteProduct,
+			confirmDelete,
 		}
 	},
 	components: {
-		AppModalWrapper,
 		AdminProductEdit,
+		AppConfirm,
 	},
 }
 </script>

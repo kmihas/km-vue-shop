@@ -1,9 +1,9 @@
 <template>
 	<teleport to="body">
 		<div class="modal__wrap">
-			<div class="modal__shadow" @click.prevent="close"></div>
+			<div class="modal__shadow" @click.prevent="$emit('close')"></div>
 			<div class="modal__box">
-				<div class="modal_close right" @click.prevent="close">
+				<div class="modal_close right" @click.prevent="$emit('close')">
 					<i class="material-icons">close</i>
 				</div>
 				<slot />
@@ -13,20 +13,9 @@
 </template>
 
 <script>
-import { useStore } from 'vuex'
-
 export default {
 	name: 'AppModalWraper',
-	setup() {
-		const store = useStore()
-		const close = () => {
-			store.commit('setModal', false)
-		}
-
-		return {
-			close,
-		}
-	},
+	emits: ['close'],
 }
 </script>
 
@@ -63,8 +52,8 @@ export default {
 	left: 50%;
 	padding: 10px;
 	transform: translate(-50%, -50%);
-	min-width: 400px;
-	min-height: 300px;
+	min-width: 300px;
+	min-height: 100px;
 	z-index: 102;
 }
 

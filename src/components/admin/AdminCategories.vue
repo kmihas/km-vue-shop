@@ -1,5 +1,5 @@
 <template>
-	<h4>Категории категорий</h4>
+	<h4>Список категорий</h4>
 	<div class="page product-loader" v-if="loading">
 		<AppLoader />
 	</div>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import AdminCategoriesTable from './AdminCategoriesTable'
 import AppLoader from '../ui/AppLoader'
@@ -20,9 +20,7 @@ export default {
 		const store = useStore()
 		const loading = computed(() => store.getters['categories/loading'])
 		const categories = computed(() => store.getters['categories/categories'])
-		onMounted(() => {
-			store.dispatch('categories/getCategories')
-		})
+
 		return {
 			categories,
 			loading,

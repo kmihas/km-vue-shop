@@ -6,10 +6,7 @@
 				<th>Тип(<small>на английском</small>)</th>
 				<th>Название</th>
 				<th>
-					<i
-						class="material-icons"
-						@click.prevent="showModal('AdminCategoryEdit', {})"
-					>
+					<i class="material-icons" @click.prevent="toEdit({})">
 						add
 					</i>
 				</th>
@@ -23,31 +20,36 @@
 				<td>{{ item.type }}</td>
 				<td>{{ item.title }}</td>
 				<td>
-					<i
-						class="material-icons"
-						@click.prevent="showModal('AdminCategoryEdit', item)"
-					>
+					<i class="material-icons" @click.prevent="toEdit(item)">
 						edit
 					</i>
 				</td>
 				<td>
-					<i class="material-icons" @click.prevent="deleteCategory(item.id)">
+					<i class="material-icons" @click.prevent="confirmDelete(item)">
 						delete
 					</i>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-	<AppModalWrapper v-if="isModal">
-		<component :is="modalComponent" :category="category" />
-	</AppModalWrapper>
+	<AdminCategoryEdit
+		:category="category"
+		v-if="isEdit"
+		@close="isEdit = false"
+	/>
+	<AppConfirm
+		:title="confirmTitle"
+		v-if="confirm"
+		@reject="confirm = false"
+		@confirm="deleteCategory(confirmItem.id)"
+	/>
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
-import AppModalWrapper from '../AppModalWrapper'
 import AdminCategoryEdit from './AdminCategoryEdit'
+import AppConfirm from '../ui/AppConfirm'
 
 export default {
 	name: 'AdminCategoriesTable',
@@ -59,32 +61,43 @@ export default {
 	},
 	setup() {
 		const store = useStore()
-		const isModal = computed(() => store.getters['showModal'])
+		const confirm = ref(false)
+		const confirmTitle = ref('')
+		const confirmItem = ref({})
+		const isEdit = ref(false)
 		const category = ref('')
-		const modalComponent = ref('')
-		const showModal = (component, item) => {
-			modalComponent.value = component
+
+		const toEdit = (item) => {
 			category.value = item
-			store.commit('setModal', true)
+			isEdit.value = true
 		}
 
 		const deleteCategory = async (id) => {
 			await store.dispatch('categories/deleteCategory', id)
 			await store.dispatch('categories/getCategories')
-			store.commit('setModal', false)
+			confirm.value = false
+		}
+
+		const confirmDelete = (item) => {
+			confirmTitle.value = `Вы уверены, что хотите удалить категорию "${item.title}" ?`
+			confirmItem.value = item
+			confirm.value = true
 		}
 
 		return {
-			isModal,
 			category,
-			modalComponent,
-			showModal,
+			toEdit,
+			isEdit,
 			deleteCategory,
+			confirm,
+			confirmTitle,
+			confirmItem,
+			confirmDelete,
 		}
 	},
 	components: {
-		AppModalWrapper,
 		AdminCategoryEdit,
+		AppConfirm,
 	},
 }
 </script>

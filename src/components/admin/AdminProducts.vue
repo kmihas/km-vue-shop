@@ -4,9 +4,11 @@
 		<AppLoader />
 	</div>
 	<div v-else>
-		<suspense>
-			<AdminProductsTable :products="products" :categories="categories" />
-		</suspense>
+		<AdminProductsTable
+			:products="products"
+			:categories="categories"
+			v-if="show"
+		/>
 		<div class="center-align">
 			<AppPagination :curr="+pageCurr" :last="+pageLast" v-if="show" />
 		</div>
@@ -14,7 +16,7 @@
 </template>
 
 <script>
-import { computed, onMounted, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import AdminProductsTable from './AdminProductsTable'
@@ -41,15 +43,6 @@ export default {
 
 		watch(pageCurr, (newVal) => {
 			store.commit('products/setPage', newVal)
-		})
-
-		const load = async () => {
-			await store.dispatch('categories/getCategories')
-			await store.dispatch('products/getProducts')
-		}
-
-		onMounted(() => {
-			load()
 		})
 
 		return {
