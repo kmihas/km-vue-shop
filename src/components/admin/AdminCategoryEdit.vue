@@ -1,5 +1,8 @@
 <template>
 	<AppModalWrapper @close="$emit('close')">
+		<div class="center-align">
+			<h5>Редактирование категории</h5>
+		</div>
 		<div class="container card-content">
 			<form class="white-text" @submit.prevent="onSubmit">
 				<div class="input-field">
