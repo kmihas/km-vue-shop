@@ -38,12 +38,19 @@
 			</form>
 		</div>
 	</AppModalWrapper>
+	<AppConfirm
+		title="Вы не сохранили изменения, закрыть?"
+		v-if="confirm"
+		@reject="confirm = false"
+		@confirm="confirm = true"
+	/>
 </template>
 
 <script>
 import { computed, onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
 import AppModalWrapper from '../AppModalWrapper'
+import AppConfirm from '../ui/AppConfirm'
 
 export default {
 	name: 'AdminCategoryEdit',
@@ -56,6 +63,7 @@ export default {
 	emits: ['close'],
 	setup({ category }, context) {
 		const store = useStore()
+		const confirm = ref(false)
 		const { id, title, type } = category
 		const editedCategory = reactive({
 			id,
@@ -96,10 +104,12 @@ export default {
 			editedCategory,
 			save,
 			change,
+			confirm,
 		}
 	},
 	components: {
 		AppModalWrapper,
+		AppConfirm,
 	},
 }
 </script>
