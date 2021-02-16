@@ -8,7 +8,8 @@
 					</div>
 				</router-link>
 				<div class="card-title">
-					<span class="">{{ product.title }}</span>
+					<p class="small">{{ product.title }}</p>
+					<p class="small">Цена: {{ product.price }}</p>
 				</div>
 				<div class="card-action">
 					<AppAddCart
@@ -53,9 +54,17 @@ export default {
 
 <style lang="scss" scoped>
 .row {
-	width: 200px;
+	width: 14rem;
 	margin: 0.1rem;
 	text-align: center;
+}
+
+.small {
+	font-size: 1rem;
+}
+
+.row p {
+	margin: 0;
 }
 
 .prodcount {

@@ -8,13 +8,15 @@
 <script>
 import ShopFilterForm from '../components/shop/ShopFilterForm'
 import ShopProductList from '../components/shop/ShopProductList'
-import { useShop } from '../use/shop'
+import { useProductFilter } from '../use/product-filter'
+import { useLoadEnter } from '../use/load-enter'
 
 export default {
 	name: 'Shop',
 	setup() {
 		return {
-			...useShop(),
+			...useLoadEnter(),
+			...useProductFilter(),
 		}
 	},
 	components: {

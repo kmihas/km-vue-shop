@@ -1,5 +1,5 @@
 <template>
-	<div class="col s2 m2 x2">
+	<div class="col s3 m3 x3">
 		<div class="input-field">
 			<input type="text" id="search" v-model="search" @change="changeSearch" />
 			<label for="search">Найти товар...</label>
@@ -28,7 +28,7 @@
 		<div class="input-field col s12">
 			<select v-model="perPageCurr">
 				<option
-					v-for="item in [5, 10, 20, 50]"
+					v-for="item in [4, 8, 12, 24]"
 					:key="item"
 					:value="+item"
 					:class="{ selected: +item === +perPage }"

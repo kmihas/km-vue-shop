@@ -2,7 +2,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
-export function useShop() {
+export function useProductFilter() {
 	const store = useStore()
 	const route = useRoute()
 
@@ -15,6 +15,7 @@ export function useShop() {
 	const products = computed(() => store.getters['products/products'])
 	const loading = computed(() => store.getters['products/loading'])
 	const categories = computed(() => store.getters['categories/categories'])
+	const show = computed(() => products.value.length)
 
 	watch(filter, (filter) => {
 		store.commit('products/setFilter', filter)
@@ -22,11 +23,10 @@ export function useShop() {
 
 	onMounted(() => {
 		store.commit('products/setFilter', filter)
-		store.dispatch('categories/getCategories')
-		store.dispatch('products/getProducts')
 	})
 
 	return {
+		show,
 		filter,
 		categories,
 		products,

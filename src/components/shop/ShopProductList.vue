@@ -1,5 +1,5 @@
 <template>
-	<div class="container col s10 m10 x10">
+	<div class="container col s9 m9 x9">
 		<div class="page product-loader" v-if="loader">
 			<AppLoader />
 		</div>
@@ -10,9 +10,9 @@
 				:product="item"
 			/>
 			<div v-if="!show">
-				<h4>
+				<h5>
 					Товаров указанных в поиске нет.
-				</h4>
+				</h5>
 			</div>
 		</div>
 		<div class="center-align" v-if="!loader">

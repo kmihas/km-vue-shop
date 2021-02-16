@@ -1,16 +1,23 @@
 <template>
-	<h4>Перечень товаров</h4>
-	<div class="page product-loader" v-if="loading">
-		<AppLoader />
-	</div>
-	<div v-else>
-		<AdminProductsTable
-			:products="products"
-			:categories="categories"
-			v-if="show"
-		/>
-		<div class="center-align">
-			<AppPagination :curr="+pageCurr" :last="+pageLast" v-if="show" />
+	<div class="row col s12">
+		<h4>Перечень товаров</h4>
+		<ShopFilterForm :categories="categories" v-model="filter" />
+		<div class="page product-loader" v-if="loading">
+			<AppLoader />
+		</div>
+		<div v-else>
+			<AdminProductsTable :products="products" :categories="categories" />
+			<AppPagination
+				class="center-align"
+				:curr="+pageCurr"
+				:last="+pageLast"
+				v-if="show"
+			/>
+		</div>
+		<div class="center-align" v-if="!show ?? !loading">
+			<h5>
+				Товаров указанных в поиске нет.
+			</h5>
 		</div>
 	</div>
 </template>
@@ -19,18 +26,18 @@
 import { computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import { useProductFilter } from '../../use/product-filter'
 import AdminProductsTable from './AdminProductsTable'
 import AppPagination from '../ui/AppPagination'
 import AppLoader from '../ui/AppLoader'
+import ShopFilterForm from '../shop/ShopFilterForm'
 
 export default {
 	name: 'AdminsProducts',
 	setup() {
 		const store = useStore()
 		const route = useRoute()
-		const categories = computed(() => store.getters['categories/categories'])
-		const products = computed(() => store.getters['products/products'])
-		const loading = computed(() => store.getters['products/loading'])
+
 		const countProducts = computed(
 			() => store.getters['products/productsFiltered'].length
 		)
@@ -39,25 +46,22 @@ export default {
 		const pageLast = computed(() => {
 			return Math.ceil(countProducts.value / perPage.value)
 		})
-		const show = computed(() => products.value.length)
 
 		watch(pageCurr, (newVal) => {
 			store.commit('products/setPage', newVal)
 		})
 
 		return {
-			loading,
-			products,
-			categories,
 			pageCurr,
 			pageLast,
-			show,
+			...useProductFilter(),
 		}
 	},
 	components: {
 		AdminProductsTable,
 		AppPagination,
 		AppLoader,
+		ShopFilterForm,
 	},
 }
 </script>

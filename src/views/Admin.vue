@@ -1,25 +1,15 @@
 <template>
-	<div class="container">
-		<router-view />
-	</div>
+	<router-view />
 </template>
 
 <script>
-import { onMounted } from 'vue'
-import { useStore } from 'vuex'
+import { useLoadEnter } from '../use/load-enter'
+
 export default {
 	setup() {
-		const store = useStore()
-		const load = async () => {
-			await store.dispatch('categories/getCategories')
-			await store.dispatch('products/getProducts')
+		return {
+			...useLoadEnter(),
 		}
-
-		onMounted(() => {
-			load()
-		})
-
-		return {}
 	},
 }
 </script>

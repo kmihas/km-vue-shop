@@ -29,8 +29,8 @@ export default {
 <style>
 .page {
 	display: flex;
-	justify-content: space-around;
 	flex-wrap: wrap;
+	justify-content: flex-start;
 	min-height: 20rem;
 }
 .product-loader {
