@@ -106,6 +106,9 @@ export default {
 
       return [...outPage]
     },
+    productsCount(state) {
+      return state.products.length
+    },
     perPage(state) {
       return state.perPage
     },

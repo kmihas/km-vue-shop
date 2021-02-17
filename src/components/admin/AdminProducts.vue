@@ -1,7 +1,7 @@
 <template>
 	<div class="row col s12">
 		<h4>Перечень товаров</h4>
-		<ShopFilterForm :categories="categories" v-model="filter" />
+		<AppFilterForm :categories="categories" v-model="filter" />
 		<div class="page product-loader" v-if="loading">
 			<AppLoader />
 		</div>
@@ -15,11 +15,6 @@
 				/>
 			</AdminProductsTable>
 		</div>
-		<div class="center-align" v-if="!show ?? !loading">
-			<h5>
-				Товаров указанных в поиске нет.
-			</h5>
-		</div>
 	</div>
 </template>
 
@@ -31,7 +26,7 @@ import { useProductFilter } from '../../use/product-filter'
 import AdminProductsTable from './AdminProductsTable'
 import AppPagination from '../ui/AppPagination'
 import AppLoader from '../ui/AppLoader'
-import ShopFilterForm from '../shop/ShopFilterForm'
+import AppFilterForm from '../AppFilterForm'
 
 export default {
 	name: 'AdminsProducts',
@@ -62,7 +57,7 @@ export default {
 		AdminProductsTable,
 		AppPagination,
 		AppLoader,
-		ShopFilterForm,
+		AppFilterForm,
 	},
 }
 </script>

@@ -54,7 +54,7 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
-	name: 'ShopFilter',
+	name: 'AppFilterForm',
 	props: {
 		categories: {
 			type: Object,

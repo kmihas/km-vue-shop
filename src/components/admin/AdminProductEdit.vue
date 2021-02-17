@@ -1,5 +1,5 @@
 <template>
-	<AppModalWrapper @close="$emit('close')">
+	<AppModalWrapper @close="close">
 		<div class="center-align">
 			<h5>Редактирование товара</h5>
 		</div>
@@ -8,20 +8,20 @@
 				<div class="input-field">
 					<label for="title">Название</label>
 					<input
-						:class="['validate', { valid: editedProduct.title !== '' }]"
+						:class="['validate', { valid: editedItem.title !== '' }]"
 						type="text"
 						id="title"
-						v-model.trim="editedProduct.title"
+						v-model.trim="editedItem.title"
 					/>
 				</div>
 
 				<div class="input-field col s12">
-					<select v-model.trim="editedProduct.category">
+					<select v-model.trim="editedItem.category">
 						<option
 							v-for="item in categories"
 							:key="item.id"
 							:value="item.type"
-							:selected="item.type === editedProduct.category"
+							:selected="item.type === editedItem.category"
 						>
 							{{ item.title }}
 						</option>
@@ -32,30 +32,30 @@
 				<div class="input-field">
 					<label for="price">Цена</label>
 					<input
-						:class="['validate', { valid: editedProduct.price !== '' }]"
+						:class="['validate', { valid: editedItem.price !== '' }]"
 						type="text"
 						id="price"
-						v-model.trim="editedProduct.price"
+						v-model.trim="editedItem.price"
 					/>
 				</div>
 
 				<div class="input-field">
 					<label for="count">Количество</label>
 					<input
-						:class="['validate', { valid: editedProduct.count !== '' }]"
+						:class="['validate', { valid: editedItem.count !== '' }]"
 						type="text"
 						id="count"
-						v-model.trim="editedProduct.count"
+						v-model.trim="editedItem.count"
 					/>
 				</div>
 
 				<div class="input-field">
 					<label for="picture">Изображение (ссылка)</label>
 					<input
-						:class="['validate', { valid: editedProduct.img !== '' }]"
+						:class="['validate', { valid: editedItem.img !== '' }]"
 						type="text"
 						id="picture"
-						v-model.trim="editedProduct.img"
+						v-model.trim="editedItem.img"
 					/>
 				</div>
 
@@ -72,12 +72,19 @@
 			</form>
 		</div>
 	</AppModalWrapper>
+	<AppConfirm
+		title="Вы внесли изменения, но не сохранили. Закрыть?"
+		v-if="confirm"
+		@reject="confirm = false"
+		@confirm="$emit('close')"
+	/>
 </template>
 
 <script>
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import AppModalWrapper from '../AppModalWrapper'
+import AppConfirm from '../ui/AppConfirm'
 
 export default {
 	name: 'AdminProductEdit',
@@ -91,39 +98,26 @@ export default {
 			required: true,
 		},
 	},
+	emits: ['close'],
 	setup({ product }, context) {
 		const store = useStore()
+		const confirm = ref(false)
 		const { id, title, count, category, price, img } = product
-		const editedProduct = reactive({
-			id,
-			title,
-			count,
-			category,
-			price,
-			img,
-		})
-
-		const primeState = {
-			id,
-			title,
-			count,
-			category,
-			price,
-			img,
-		}
+		const editedItem = reactive({ id, title, count, category, price, img })
+		const primeItem = { id, title, count, category, price, img }
 
 		const change = computed(() => {
-			return Object.keys(primeState).reduce((acc, item) => {
-				const el = primeState[item] !== editedProduct[item] ? true : false
+			return Object.keys(primeItem).reduce((acc, item) => {
+				const el = primeItem[item] !== editedItem[item] ? true : false
 				return acc || el
 			}, false)
 		})
 
 		const save = async () => {
-			if (editedProduct.id) {
-				await store.dispatch('products/saveProductById', editedProduct)
+			if (editedItem.id) {
+				await store.dispatch('products/saveProductById', editedItem)
 			} else {
-				const body = editedProduct
+				const body = editedItem
 				delete body.id
 				await store.dispatch('products/saveProduct', body)
 			}
@@ -136,14 +130,21 @@ export default {
 			M.updateTextFields()
 		})
 
+		const close = () => {
+			change.value ? (confirm.value = true) : context.emit('close')
+		}
+
 		return {
-			editedProduct,
+			editedItem,
 			save,
 			change,
+			confirm,
+			close,
 		}
 	},
 	components: {
 		AppModalWrapper,
+		AppConfirm,
 	},
 }
 </script>

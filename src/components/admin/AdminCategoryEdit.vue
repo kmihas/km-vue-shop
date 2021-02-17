@@ -8,20 +8,20 @@
 				<div class="input-field">
 					<label for="title">Название</label>
 					<input
-						:class="['validate', { valid: editedCategory.title !== '' }]"
+						:class="['validate', { valid: editedItem.title !== '' }]"
 						type="text"
 						id="title"
-						v-model.trim="editedCategory.title"
+						v-model.trim="editedItem.title"
 					/>
 				</div>
 
 				<div class="input-field">
 					<label for="type">Тип</label>
 					<input
-						:class="['validate', { valid: editedCategory.type !== '' }]"
+						:class="['validate', { valid: editedItem.type !== '' }]"
 						type="text"
 						id="type"
-						v-model.trim="editedCategory.type"
+						v-model.trim="editedItem.type"
 					/>
 				</div>
 
@@ -65,30 +65,21 @@ export default {
 		const store = useStore()
 		const confirm = ref(false)
 		const { id, title, type } = category
-		const editedCategory = reactive({
-			id,
-			title,
-			type,
-		})
-
-		const primeState = {
-			id,
-			title,
-			type,
-		}
+		const editedItem = reactive({ id, title, type })
+		const primeItem = { id, title, type }
 
 		const change = computed(() => {
-			return Object.keys(primeState).reduce((acc, item) => {
-				const el = primeState[item] !== editedCategory[item] ? true : false
+			return Object.keys(primeItem).reduce((acc, item) => {
+				const el = primeItem[item] !== editedItem[item] ? true : false
 				return acc || el
 			}, false)
 		})
 
 		const save = async () => {
-			if (editedCategory.id) {
-				await store.dispatch('categories/saveCategoryById', editedCategory)
+			if (editedItem.id) {
+				await store.dispatch('categories/saveCategoryById', editedItem)
 			} else {
-				const body = editedCategory
+				const body = editedItem
 				delete body.id
 				await store.dispatch('categories/saveCategory', body)
 			}
@@ -105,7 +96,7 @@ export default {
 		})
 
 		return {
-			editedCategory,
+			editedItem,
 			save,
 			change,
 			confirm,

@@ -1,12 +1,12 @@
 <template>
 	<div class="row col s12">
-		<ShopFilterForm :categories="categories" v-model="filter" />
+		<AppFilterForm :categories="categories" v-model="filter" />
 		<ShopProductList :products="products" :loader="loading" />
 	</div>
 </template>
 
 <script>
-import ShopFilterForm from '../components/shop/ShopFilterForm'
+import AppFilterForm from '../components/AppFilterForm'
 import ShopProductList from '../components/shop/ShopProductList'
 import { useProductFilter } from '../use/product-filter'
 import { useLoadEnter } from '../use/load-enter'
@@ -21,7 +21,7 @@ export default {
 	},
 	components: {
 		ShopProductList,
-		ShopFilterForm,
+		AppFilterForm,
 	},
 }
 </script>

@@ -18,6 +18,9 @@
 				<li :class="{ active: route.path === '/admin/categories' }">
 					<router-link to="/admin/categories">Категории</router-link>
 				</li>
+				<li :class="{ active: route.path === '/admin/orders' }">
+					<router-link to="/admin/orders">Заказы</router-link>
+				</li>
 				<li><a href="" @click.prevent="logout">Выход</a></li>
 			</ul>
 		</div>

@@ -5,8 +5,12 @@ export function useLoadEnter() {
 	const store = useStore()
 
 	const load = async () => {
-		await store.dispatch('categories/getCategories')
-		await store.dispatch('products/getProducts')
+		if (store.getters['categories/categoriesCount'] === 0) {
+			await store.dispatch('categories/getCategories')
+		}
+		if (store.getters['products/productsCount'] === 0) {
+			await store.dispatch('products/getProducts')
+		}
 	}
 
 	onMounted(() => {

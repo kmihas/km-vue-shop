@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 import AdminProductEdit from './AdminProductEdit'
 import AppConfirm from '../ui/AppConfirm'

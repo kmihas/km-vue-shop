@@ -50,6 +50,9 @@ export default {
     categories(state) {
       return state.categories
     },
+    categoriesCount(state) {
+      return state.categories.length
+    },
     loading(state) {
       return state.loading
     }

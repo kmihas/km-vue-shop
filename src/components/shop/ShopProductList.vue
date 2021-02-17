@@ -9,11 +9,6 @@
 				:key="item.id"
 				:product="item"
 			/>
-			<div v-if="!show">
-				<h5>
-					Товаров указанных в поиске нет.
-				</h5>
-			</div>
 		</div>
 		<div class="center-align" v-if="!loader">
 			<AppPagination :curr="+pageCurr" :last="+pageLast" v-if="show" />
