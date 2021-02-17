@@ -1,6 +1,8 @@
 <template>
-	<div class="container card card-login">
-		<router-view />
+	<div class="auth__layout">
+		<div class="container card card-login">
+			<router-view />
+		</div>
 	</div>
 </template>
 
@@ -13,6 +15,15 @@ export default {
 </script>
 
 <style>
+.auth__layout {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .card-login {
 	width: 400px;
 	margin: 0 auto;

@@ -1,54 +1,69 @@
 <template>
 	<div class="card-content">
-		<h4 class="center-align">Вход</h4>
-		<form class="white-text" @submit.prevent="onSubmit">
-			<div :class="['input-field', { invalid: emailError }]">
-				<label for="email">E-Mail</label>
-				<input
-					:class="['validate', { invalid: emailError }]"
-					type="email"
-					id="email"
-					v-model.trim="email"
-					@change="emailChange"
-					@blur="emailChange"
-				/>
-				<span class="helper-text" :data-error="emailError"></span>
+		<div class="row">
+			<div class="col s12">
+				<ul class="tabs" id="tabs">
+					<li class="tab col s6">
+						<a :class="{ active: logintab }" href="#auth">Вход</a>
+					</li>
+					<li class="tab col s6">
+						<a :class="{ active: !logintab }" href="#registration"
+							>Регистрация</a
+						>
+					</li>
+				</ul>
 			</div>
-
-			<div class="input-field">
-				<label for="password">Пароль</label>
-				<input
-					:class="['validate', { invalid: passError }]"
-					type="password"
-					id="password"
-					v-model.trim="pass"
-					@change="passChange"
-					@blur="passChange"
-				/>
-				<span class="helper-text" :data-error="passError"></span>
+			<div id="registration" class="col s12">
+				<FormRegistration />
 			</div>
-			<div class="right-align">
-				<button
-					class="btn blue-grey darken-2 right-align waves-effect"
-					type="submit"
-					:disabled="isSubmitting || toManyTry"
-				>
-					Войти
-				</button>
+			<div id="auth" class="col s12">
+				<FormAuth />
 			</div>
-		</form>
+		</div>
 	</div>
 </template>
 
 <script>
-import { useLoginForm } from '../use/login-form'
+import { onMounted } from 'vue'
+import FormAuth from '../components/auth/FormAuth'
+import FormRegistration from '../components/auth/FormRegistration'
 
 export default {
 	name: 'Auth',
+	props: {
+		logintab: {
+			type: Boolean,
+			required: false,
+			default: true,
+		},
+	},
 	setup() {
-		return {
-			...useLoginForm(),
-		}
+		onMounted(() => {
+			const el = document.getElementById('tabs')
+			M.Tabs.init(el)
+		})
+
+		return {}
+	},
+	components: {
+		FormAuth,
+		FormRegistration,
 	},
 }
 </script>
+
+<style scoped>
+.tabs .tab a {
+	color: #607d8b;
+}
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
+	color: #263238;
+}
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
+	color: #263238;
+}
+</style>

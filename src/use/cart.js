@@ -1,4 +1,4 @@
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 export function useCart() {
@@ -7,6 +7,27 @@ export function useCart() {
   const cartProducts = computed(() => store.getters['cart/cartProducts'])
   const cartClear = computed(() => store.getters['cart/cartCount'])
   const loading = computed(() => store.getters['cart/loading'])
+  const isAuth = computed(() => {
+    return store.getters['auth/isAutenticated']
+  })
+  const authModal = ref(false)
+  const tabs = ref(true)
+
+  const regTab = () => {
+    tabs.value = false
+    authModal.value = true
+  }
+
+  const loginTab = () => {
+    tabs.value = true
+    authModal.value = true
+  }
+
+  watch((isAuth), (newVal, oldVal) => {
+    if( newVal && !oldVal ) {
+      authModal.value = false
+    }
+  })
 
   onMounted(() => {
     store.dispatch('cart/getCartProducts')
@@ -16,6 +37,11 @@ export function useCart() {
     cart,
     cartProducts,
     cartClear,
-    loading
+    loading,
+    isAuth,
+    authModal,
+    tabs,
+    loginTab,
+    regTab
   }
 }

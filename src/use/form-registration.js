@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import * as yup from 'yup'
 
-export function useLoginForm() {
+export function useFormRegistration() {
 	const MIN_LENGTH = process.env.VUE_APP_PASS_MIN_LENGTH
 	const store = useStore()
 	const router = useRouter()
@@ -15,7 +15,7 @@ export function useLoginForm() {
 		errorMessage: emailError,
 		handleChange: emailChange,
 	} = useField(
-		'email',
+		'emailReg',
 		yup
 			.string()
 			.trim()
@@ -28,7 +28,7 @@ export function useLoginForm() {
 		errorMessage: passError,
 		handleChange: passChange,
 	} = useField(
-		'password',
+		'passwordReg',
 		yup
 			.string()
 			.trim()

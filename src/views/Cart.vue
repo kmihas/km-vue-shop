@@ -10,11 +10,19 @@
 			</div>
 		</div>
 		<div class="card-action right-align" v-if="cartClear && !loading">
-			<button class="btn blue-grey darken-2 waves-effect">
+			<button class="btn blue-grey darken-2 waves-effect" v-if="isAuth">
 				Оплатить
 			</button>
+			<div v-else>
+				для оформления заказа
+				<a href="" @click.prevent="loginTab">Войдите</a><br />
+				или <a href="" @click.prevent="regTab">Зарегистрируйтесь</a>
+			</div>
 		</div>
 	</div>
+	<AppModalWrapper v-if="authModal" @close="authModal = false">
+		<Auth :logintab="tabs" />
+	</AppModalWrapper>
 </template>
 
 <script>
@@ -22,6 +30,8 @@ import CartTable from '../components/cart/CartTable'
 import CartTitle from '../components/cart/CartTitle'
 import AppLoader from '../components/ui/AppLoader'
 import { useCart } from '../use/cart'
+import Auth from '../views/Auth'
+import AppModalWrapper from '../components/AppModalWrapper'
 
 export default {
 	name: 'Cart',
@@ -34,6 +44,8 @@ export default {
 		CartTable,
 		CartTitle,
 		AppLoader,
+		Auth,
+		AppModalWrapper,
 	},
 }
 </script>
