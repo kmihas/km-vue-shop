@@ -24,7 +24,6 @@ requestAxios.interceptors.response.use(null , error => {
     if(error.response.status === 401) {
         store.commit('auth/logout')
     }
-
     return Promise.reject(error)
 })
 

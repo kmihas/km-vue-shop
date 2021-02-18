@@ -3,10 +3,13 @@
 		<div class="nav-wrapper blue-grey darken-3">
 			<router-link to="/" class="brand-logo">Продукты</router-link>
 			<ul id="nav-mobile" class="right">
-				<li :class="{ active: route.path === '/shop' || route.path === '/' }">
+				<li>
+					{{ userEmail }}
+				</li>
+				<li :class="{ active: path === '/shop' || path === '/' }">
 					<router-link to="/shop">Магазин</router-link>
 				</li>
-				<li :class="{ active: route.path === '/cart' }">
+				<li :class="{ active: path === '/cart' }">
 					<router-link to="/cart">
 						Корзина
 						<span
@@ -41,12 +44,14 @@ export default {
 	setup() {
 		const store = useStore()
 		const route = useRoute()
+		const userEmail = computed(() => store.getters['auth/userEmail'])
 		const isAdmin = computed(() => {
 			return store.getters['auth/isAdmin']
 		})
 		const isAuth = computed(() => {
 			return store.getters['auth/isAutenticated']
 		})
+		const path = computed(() => route.path)
 
 		const logout = () => {
 			store.commit('auth/logout')
@@ -59,7 +64,8 @@ export default {
 			isAuth,
 			isAdmin,
 			logout,
-			route,
+			path,
+			userEmail,
 		}
 	},
 }
