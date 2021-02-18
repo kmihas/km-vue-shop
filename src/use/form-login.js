@@ -39,7 +39,7 @@ export function useFormLogin() {
 
 	const onSubmit = handleSubmit( async (values) => {
       try {
-        await store.dispatch('auth/login', values)
+        await store.dispatch('auth/signIn', values)
 				if (route.fullPath === '/auth') {
 					router.push('/')
 				}

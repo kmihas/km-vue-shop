@@ -34,7 +34,7 @@ export default {
     }
   },
   actions: {
-    async login({commit, dispatch}, payload) {
+    async signIn({commit, dispatch}, payload) {
       try {
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${APIKEY}`
         const {data} = await axios.post(url, {...payload, returnSecureToken: true})
@@ -68,7 +68,7 @@ export default {
         throw new Error()
       }
     },
-    async registrationUser({commit, dispatch}, payload) {
+    async signUp({commit, dispatch}, payload) {
       try {
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${APIKEY}`
         const {data} = await axios.post(url, {...payload, returnSecureToken: true})
@@ -80,8 +80,7 @@ export default {
         throw new Error()
       }
     },
-
-    async createUser({commit, dispatch}, payload) {
+    async createUser({dispatch}, payload) {
       try {
         const url = `/users/${payload.localId}.json`
         await requestAxios.put(url, {email: payload.email, role: 'user'})

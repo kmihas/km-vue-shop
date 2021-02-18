@@ -38,7 +38,7 @@ export function useFormRegistration() {
 
 	const onSubmit = handleSubmit( async (values) => {
       try {
-        await store.dispatch('auth/registrationUser', values)
+        await store.dispatch('auth/signUp', values)
 				if (route.fullPath === '/auth') {
 					router.push('/')
 				}
