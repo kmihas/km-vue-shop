@@ -9,6 +9,7 @@ requestAxios.defaults.params = {}
 
 requestAxios.interceptors.request.use( async config => {
     config.params['auth'] = store.getters['auth/token']
+    config.params['Content-Type'] = 'application/json'
 
     if (!store.getters['auth/isAuthenticated']) {
         return config
