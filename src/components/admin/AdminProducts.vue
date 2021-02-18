@@ -33,7 +33,6 @@ export default {
 	setup() {
 		const store = useStore()
 		const route = useRoute()
-
 		const countProducts = computed(
 			() => store.getters['products/productsFiltered'].length
 		)
