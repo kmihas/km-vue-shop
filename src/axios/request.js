@@ -1,11 +1,31 @@
 import axios from 'axios'
 import store from '../store/modules/auth.module'
 
-const token = store.getters['auth/token']
-const TOKEN_KEY = process.env.VUE_APP_TOKEN_KEY
 const requestAxios = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL
 })
-requestAxios.defaults.headers.common[TOKEN_KEY] = token
+
+requestAxios.defaults.params = {}
+
+requestAxios.interceptors.request.use( async config => {
+    config.params['auth'] = store.getters['auth/token']
+
+    if (!store.getters['auth/isAuthenticated']) {
+        return config
+    }
+    if (store.getters['auth/tokenExpired']) {
+        await store.dispatch('auth/updateToken')
+    }
+
+    return config
+})
+
+requestAxios.interceptors.response.use(null , error => {
+    if(error.response.status === 401) {
+        store.commit('auth/logout')
+    }
+
+    return Promise.reject(error)
+})
 
 export default requestAxios

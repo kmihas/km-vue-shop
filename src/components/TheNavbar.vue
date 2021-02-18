@@ -17,7 +17,7 @@
 						>
 					</router-link>
 				</li>
-				<li>
+				<li v-if="isAdmin">
 					<router-link to="/admin">Админка</router-link>
 				</li>
 				<li v-if="isAuth">
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 
@@ -41,7 +41,9 @@ export default {
 	setup() {
 		const store = useStore()
 		const route = useRoute()
-		const router = useRouter()
+		const isAdmin = computed(() => {
+			return store.getters['auth/isAdmin']
+		})
 		const isAuth = computed(() => {
 			return store.getters['auth/isAutenticated']
 		})
@@ -55,6 +57,7 @@ export default {
 		return {
 			cartCount,
 			isAuth,
+			isAdmin,
 			logout,
 			route,
 		}
