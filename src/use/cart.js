@@ -23,6 +23,11 @@ export function useCart() {
     authModal.value = true
   }
 
+  const onPay = () => {
+    console.log('pay', cartProducts.value)
+
+  }
+
   watch((isAuth), (newVal, oldVal) => {
     if( newVal && !oldVal ) {
       authModal.value = false
@@ -42,6 +47,7 @@ export function useCart() {
     authModal,
     tabs,
     loginTab,
-    regTab
+    regTab,
+    onPay
   }
 }

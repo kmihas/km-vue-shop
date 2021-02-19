@@ -10,7 +10,11 @@
 			</div>
 		</div>
 		<div class="card-action right-align" v-if="cartClear && !loading">
-			<button class="btn blue-grey darken-2 waves-effect" v-if="isAuth">
+			<button
+				class="btn blue-grey darken-2 waves-effect"
+				v-if="isAuth"
+				@click.prevent="onPay"
+			>
 				Оплатить
 			</button>
 			<div v-else>
