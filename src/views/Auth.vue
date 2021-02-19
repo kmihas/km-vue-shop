@@ -4,29 +4,40 @@
 			<div class="col s12">
 				<ul class="tabs" id="tabs">
 					<li class="tab col s6">
-						<a :class="{ active: logintab }" href="#auth">Вход</a>
+						<a
+							:class="{ active: logintab }"
+							href="#auth"
+							@click.prevent="switchState"
+							>Вход</a
+						>
 					</li>
 					<li class="tab col s6">
-						<a :class="{ active: !logintab }" href="#registration"
+						<a
+							:class="{ active: !logintab }"
+							href="#registration"
+							@click.prevent="switchState"
 							>Регистрация</a
 						>
 					</li>
 				</ul>
 			</div>
-			<div id="registration" class="col s12">
-				<FormRegistration />
-			</div>
 			<div id="auth" class="col s12">
-				<FormAuth />
+				<AuthForm type="signIn" buttonText="Войти" v-if="formState" />
+			</div>
+			<div id="registration" class="col s12">
+				<AuthForm
+					type="signUp"
+					buttonText="Зарегистрироваться"
+					v-if="!formState"
+				/>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import { onMounted } from 'vue'
-import FormAuth from '../components/auth/FormAuth'
-import FormRegistration from '../components/auth/FormRegistration'
+import { ref, onMounted } from 'vue'
+import AuthForm from '../components/auth/AuthForm'
 
 export default {
 	name: 'Auth',
@@ -37,22 +48,33 @@ export default {
 			default: true,
 		},
 	},
-	setup() {
+	setup(props) {
+		const formState = ref('')
+		const switchState = () => {
+			formState.value = !formState.value
+		}
 		onMounted(() => {
+			props.logintab ? (formState.value = true) : (formState.value = false)
 			const el = document.getElementById('tabs')
 			M.Tabs.init(el)
 		})
 
-		return {}
+		return {
+			formState,
+			switchState,
+		}
 	},
 	components: {
-		FormAuth,
-		FormRegistration,
+		AuthForm,
 	},
 }
 </script>
 
 <style scoped>
+.card-content {
+	width: 400px;
+}
+
 .tabs .tab a {
 	color: #607d8b;
 }

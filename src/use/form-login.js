@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import * as yup from 'yup'
 
-export function useFormLogin() {
+export function useFormLogin(type) {
 	const MIN_LENGTH = process.env.VUE_APP_PASS_MIN_LENGTH
 	const store = useStore()
 	const route = useRoute()
@@ -25,7 +25,7 @@ export function useFormLogin() {
 	)
 
 	const {
-		value: pass,
+		value: password,
 		errorMessage: passError,
 		handleChange: passChange,
 	} = useField(
@@ -39,7 +39,7 @@ export function useFormLogin() {
 
 	const onSubmit = handleSubmit( async (values) => {
       try {
-        await store.dispatch('auth/signIn', values)
+        await store.dispatch(`auth/${type}`, values)
 				if (route.fullPath === '/auth') {
 					router.push('/')
 				}
@@ -62,7 +62,7 @@ export function useFormLogin() {
 		email,
 		emailError,
 		emailChange,
-		pass,
+		password,
 		passError,
 		passChange,
 		onSubmit,

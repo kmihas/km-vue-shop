@@ -19,7 +19,7 @@
 				:class="['validate', { invalid: passError }]"
 				type="password"
 				id="password"
-				v-model.trim="pass"
+				v-model.trim="password"
 				@change="passChange"
 				@blur="passChange"
 			/>
@@ -31,7 +31,7 @@
 				type="submit"
 				:disabled="isSubmitting || toManyTry"
 			>
-				Войти
+				{{ buttonText }}
 			</button>
 		</div>
 	</form>
@@ -41,10 +41,20 @@
 import { useFormLogin } from '@/use/form-login'
 
 export default {
-	name: 'Auth',
-	setup() {
+	name: 'AuthForm',
+	props: {
+		type: {
+			type: String,
+			required: true,
+		},
+		buttonText: {
+			type: String,
+			required: true,
+		},
+	},
+	setup(props) {
 		return {
-			...useFormLogin(),
+			...useFormLogin(props.type),
 		}
 	},
 }
