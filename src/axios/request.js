@@ -13,7 +13,7 @@ requestAxios.interceptors.request.use( async config => {
     if (!store.getters['auth/isAuthenticated']) {
         return config
     }
-    if (store.getters['auth/tokenExpired']) {
+    if (store.getters['auth/needUpdateToken']) {
         await store.dispatch('auth/updateToken')
     }
 

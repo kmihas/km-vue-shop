@@ -12,6 +12,7 @@ export function useCart() {
   const isAuth = computed(() => {
     return store.getters['auth/isAutenticated']
   })
+  const needUpdateToken = computed(() => store.getters['auth/needUpdateToken'])
   const authModal = ref(false)
   const tabs = ref(true)
   const userId = computed(() => store.getters['auth/userId'])
@@ -52,6 +53,9 @@ export function useCart() {
 
   onMounted(() => {
     store.dispatch('cart/getCartProducts')
+    if(needUpdateToken.value) {
+      store.dispatch('auth/updateToken')
+    }
   })
 
   return {

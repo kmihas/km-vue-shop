@@ -51,12 +51,14 @@ export default {
         const {data} = await requestAxios.get(url)
         commit('setUser', {...data, id})
     },
-    async updateToken ({commit}) {
+    async updateToken({state, commit}) {
       try {
         const url = `https://securetoken.googleapis.com/v1/token?key=${APIKEY}`
-        const {data} = await axios.post(url, {
-          grant_type: 'refresh_token',
-          refresh_token: state.token.refreshToken
+        const body = `grant_type=refresh_token&refresh_token=${state.token.refreshToken}`
+        const {data} = await axios(url, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          data: body
         })
         commit('setToken', {
           idToken: data.id_token,
@@ -109,6 +111,9 @@ export default {
     },
     userId(state) {
       return state.user.id ?? ''
+    },
+    needUpdateToken(_, getters) {
+      return !!getters.token && getters.tokenExpired
     }
   }
 }

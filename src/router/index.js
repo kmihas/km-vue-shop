@@ -17,7 +17,6 @@ const routes = [
     }),
     meta: {
       layout: 'main',
-      auth: false,
       admin: false
     }
   },
@@ -27,7 +26,6 @@ const routes = [
     component: Product,
     meta: {
       layout: 'main',
-      auth: false,
       admin: false
     }
   },
@@ -37,7 +35,6 @@ const routes = [
     component: () => import('../views/Cart'),
     meta: {
       layout: 'main',
-      auth: false,
       admin: false
     }
   },
@@ -45,14 +42,8 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: () => import('../views/Admin'),
-    props: route => ({
-      query: route.query.search,
-      query: route.query.category,
-      query: route.query.page
-    }),
     meta: {
       layout: 'admin',
-      auth: true,
       admin: true
     },
     children: [
@@ -63,6 +54,11 @@ const routes = [
       {
         path: 'products',
         component: () => import('../components/admin/AdminProducts'),
+        props: route => ({
+          query: route.query.search,
+          query: route.query.category,
+          query: route.query.page
+        }),
       },
       {
         path: 'categories',
@@ -80,7 +76,6 @@ const routes = [
     component: Auth,
     meta: {
       layout: 'auth',
-      auth: false,
       admin: false
     }
   }

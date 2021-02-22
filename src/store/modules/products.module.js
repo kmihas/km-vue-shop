@@ -82,8 +82,7 @@ export default {
       const url = `/products/${item.id}.json`
       const idx = state.products.findIndex(el => el.id === item.id)
       const count = (+state.products[idx].count) - (+item.count)
-      const body = { count }
-      const {data} = await requestAxios.patch(url, body)
+      const {data} = await requestAxios.patch(url, { count })
       if(data) {
         commit('setCount', {idx, count})
       }
