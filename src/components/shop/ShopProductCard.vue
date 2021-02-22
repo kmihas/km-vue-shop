@@ -1,7 +1,7 @@
 <template>
 	<div class="row">
 		<div class="col s12">
-			<div class="card small">
+			<div class="card">
 				<router-link :to="{ path: `/product/${product.id}` }">
 					<div class="card-image">
 						<img :src="product.img" />
@@ -9,6 +9,7 @@
 				</router-link>
 				<div class="card-title">
 					<p class="small">{{ product.title }}</p>
+					<p class="small">в наличии: {{ product.count }}</p>
 					<p class="small">Цена: {{ product.price }}</p>
 				</div>
 				<div class="card-action">

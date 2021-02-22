@@ -1,8 +1,10 @@
 import { computed, onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export function useCart() {
   const store = useStore()
+  const router = useRouter()
   const cart = computed(() => store.getters['cart/cart'])
   const cartProducts = computed(() => store.getters['cart/cartProducts'])
   const cartClear = computed(() => store.getters['cart/cartCount'])
@@ -12,6 +14,7 @@ export function useCart() {
   })
   const authModal = ref(false)
   const tabs = ref(true)
+  const userId = computed(() => store.getters['auth/userId'])
 
   const regTab = () => {
     tabs.value = false
@@ -24,8 +27,21 @@ export function useCart() {
   }
 
   const onPay = () => {
-    console.log('pay', cartProducts.value)
-
+    const order = {
+      date: Date.now(),
+      userId: userId.value,
+      list: []
+    }
+    cartProducts.value.forEach(el => {
+      el.count = cart.value[el.id]
+      order.list.push({
+        productId: el.id,
+        count: cart.value[el.id],
+        price: el.price
+      })
+    })
+    store.dispatch('orders/saveOrder', order)
+    router.push('/')
   }
 
   watch((isAuth), (newVal, oldVal) => {

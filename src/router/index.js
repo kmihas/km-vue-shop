@@ -17,7 +17,8 @@ const routes = [
     }),
     meta: {
       layout: 'main',
-      auth: false
+      auth: false,
+      admin: false
     }
   },
   {
@@ -26,7 +27,8 @@ const routes = [
     component: Product,
     meta: {
       layout: 'main',
-      auth: false
+      auth: false,
+      admin: false
     }
   },
   {
@@ -35,7 +37,8 @@ const routes = [
     component: () => import('../views/Cart'),
     meta: {
       layout: 'main',
-      auth: false
+      auth: false,
+      admin: false
     }
   },
   {
@@ -49,7 +52,8 @@ const routes = [
     }),
     meta: {
       layout: 'admin',
-      auth: true
+      auth: true,
+      admin: true
     },
     children: [
       {
@@ -76,7 +80,8 @@ const routes = [
     component: Auth,
     meta: {
       layout: 'auth',
-      auth: false
+      auth: false,
+      admin: false
     }
   }
 ]
@@ -89,11 +94,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const requireAuth = to.meta.auth
+  const requireAdmin = to.meta.admin
 
-  if(requireAuth && store.getters['auth/isAutenticated']) {
+  if(requireAdmin && store.getters['auth/isAdmin']) {
     next()
-  } else if (requireAuth && !store.getters['auth/isAutenticated']) {
+  } else if (requireAdmin && !store.getters['auth/isAdmin']) {
     next('/auth?message=auth')
   }
   else {

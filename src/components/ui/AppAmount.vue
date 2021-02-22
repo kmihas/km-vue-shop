@@ -48,7 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 .prodcount {
-	padding: 1rem;
+	padding: 0.5rem;
 	font-weight: 700;
 }
 </style>

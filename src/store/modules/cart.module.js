@@ -41,6 +41,11 @@ export default {
     addToCart(state, id) {
       state.cart[id] = 1
       localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart))
+    },
+    clearCart(state) {
+      state.cart = {}
+      state.cartProducts = []
+      localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart))
     }
   },
   actions: {

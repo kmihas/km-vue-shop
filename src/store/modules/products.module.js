@@ -33,6 +33,9 @@ export default {
     },
     setPage(state, item) {
       state.filter.page = +item
+    },
+    setCount(state, item) {
+      state.products[item.idx].count = item.count
     }
   },
   actions: {
@@ -74,26 +77,32 @@ export default {
     async deleteProduct({commit}, item) {
       const url = `/products/${item}.json`
       await requestAxios.delete(url)
+    },
+    async changeCountById({state, commit}, item) {
+      const url = `/products/${item.id}.json`
+      const idx = state.products.findIndex(el => el.id === item.id)
+      const count = (+state.products[idx].count) - (+item.count)
+      const body = { count }
+      const {data} = await requestAxios.patch(url, body)
+      if(data) {
+        commit('setCount', {idx, count})
+      }
     }
   },
   getters: {
     productsFiltered(state){
-
       const filtered = [
         ...state.products.filter(el => +el.count !== 0),
         ...state.products.filter(el => +el.count === 0)
       ]
-
       const applyCategory = state.filter.category === ''
         ? filtered
         : filtered.filter(item => item.category === state.filter.category)
-
       const applySearch = state.filter.search === ''
         ? applyCategory
         : applyCategory.filter(item => {
           return !!item.title.toLowerCase()
             .includes(state.filter.search.toLowerCase(), 0)})
-
       return applySearch
     },
     products(state, getters) {
@@ -101,9 +110,7 @@ export default {
       const pageEnd = ((+pageStart) + (+state.perPage)) < getters.productsFiltered.length
           ? (+pageStart) + (+state.perPage)
           : getters.productsFiltered.length
-
       const outPage = getters.productsFiltered.slice(pageStart, pageEnd)
-
       return [...outPage]
     },
     productsCount(state) {

@@ -106,6 +106,9 @@ export default {
     },
     userEmail(state) {
       return state.user.email ?? ''
+    },
+    userId(state) {
+      return state.user.id ?? ''
     }
   }
 }

@@ -3,7 +3,7 @@
 		<div class="nav-wrapper blue-grey darken-3">
 			<router-link to="/" class="brand-logo">Продукты</router-link>
 			<ul id="nav-mobile" class="right">
-				<li>
+				<li class="user__mail" v-if="isAuth">
 					{{ userEmail }}
 				</li>
 				<li :class="{ active: path === '/shop' || path === '/' }">
@@ -24,7 +24,7 @@
 					<router-link to="/admin">Админка</router-link>
 				</li>
 				<li v-if="isAuth">
-					<a href="" @click.prevent="logout">Выйти</a>
+					<a href="" @click.prevent="logout">Выход</a>
 				</li>
 				<li v-else>
 					<router-link to="/auth">Войти</router-link>
@@ -74,5 +74,9 @@ export default {
 <style scoped>
 .brand-logo {
 	margin-left: 2rem;
+}
+
+.user__mail {
+	padding: 0 2rem;
 }
 </style>

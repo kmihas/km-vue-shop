@@ -1,7 +1,7 @@
 <template>
 	<AppModalWrapper @close="close">
 		<div class="center-align">
-			<h5>Редактирование товара</h5>
+			<h5>{{ modalTitle }}</h5>
 		</div>
 		<div class="container card-content">
 			<form class="white-text" @submit.prevent="onSubmit">
@@ -125,6 +125,10 @@ export default {
 			context.emit('close')
 		}
 
+		const modalTitle = computed(() => {
+			return id && title ? 'Редактирование товара' : 'Добавление товара'
+		})
+
 		onMounted(() => {
 			M.FormSelect.init(document.querySelectorAll('select'))
 			M.updateTextFields()
@@ -140,6 +144,7 @@ export default {
 			change,
 			confirm,
 			close,
+			modalTitle,
 		}
 	},
 	components: {
