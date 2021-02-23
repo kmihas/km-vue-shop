@@ -1,5 +1,8 @@
 # km-vue-shop
 
+# Test Credentials
+e-mail: admin@mail.ru
+pass:   123123
 ## Project setup
 ```
 npm install

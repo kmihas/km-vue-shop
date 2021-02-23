@@ -39,7 +39,7 @@ export default {
 		const router = useRouter()
 		const logout = () => {
 			store.commit('auth/logout')
-			router.push('/auth')
+			router.push('/')
 		}
 
 		return {
