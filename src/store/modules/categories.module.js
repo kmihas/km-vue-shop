@@ -52,7 +52,7 @@ export default {
     },
     async deleteCategory({commit}, item) {
       const url = `/categories/${item}.json`
-      const {data} = await requestAxios.delete(url)
+      const data = await requestAxios.delete(url)
       if(data) {
         toast.info("Удалено")
       }

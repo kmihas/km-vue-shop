@@ -92,7 +92,7 @@ export default {
     },
     async deleteProduct({commit}, item) {
       const url = `/products/${item}.json`
-      const {data} = await requestAxios.delete(url)
+      const data = await requestAxios.delete(url)
       if(data) {
         toast.info('Удалено')
       }
