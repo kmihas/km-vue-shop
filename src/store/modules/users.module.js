@@ -18,7 +18,6 @@ export default {
   actions: {
     async getUsersMail({dispatch, commit}, item) {
       commit('setUsersMail', {})
-
 			const count = item.length
 			let i = 0
 			setInterval(() => {
@@ -28,7 +27,7 @@ export default {
 				} else {
           return
 				}
-			}, 100)
+			}, process.env.VUE_APP_REQUEST_TIMEOUT)
     },
     async getMail({commit}, item) {
       const url = `/users/${item}.json`
@@ -37,7 +36,6 @@ export default {
         id: item,
         email: data.email
       })
-
     }
   },
   getters: {

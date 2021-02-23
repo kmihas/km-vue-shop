@@ -21,7 +21,7 @@ export default {
     }
   },
   actions: {
-    async getOrders({commit}) {
+    async getOrders({state, commit, dispatch}) {
       commit('setLoading', true)
       const url = `/orders.json`
       const {data} = await requestAxios.get(url)
@@ -33,6 +33,8 @@ export default {
           }
         })
         await commit('setOrders', result)
+        const users = state.orders.map(el => el.userId)
+        dispatch('users/getUsersMail', users, { root: true })
       }
       await commit('setLoading', false)
     },
@@ -46,13 +48,17 @@ export default {
         commit('cart/clearCart', {}, { root: true })
       }
     },
-    async getCurrentOrder({commit}, item) {
+    async getCurrentOrder({commit, dispatch}, item) {
       commit('setCurrentOrder', {})
       commit('setLoading', true)
       const url = `/orders/${item}.json`
       const {data} = await requestAxios.get(url)
       if(data) {
         await commit('setCurrentOrder', data)
+        const users = [data.userId]
+        const products = data.list.map(el => el.productId)
+        dispatch('users/getUsersMail', users, { root: true })
+        dispatch('products/getProductsName', products, { root: true })
       }
       commit('setLoading', false)
     }

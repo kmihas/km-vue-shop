@@ -95,6 +95,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const requireAdmin = to.meta.admin
 
+  if(store.getters['auth/needUpdateToken']) {
+    store.dispatch('auth/updateToken')
+  }
+
   if(requireAdmin && store.getters['auth/isAdmin']) {
     next()
   } else if (requireAdmin && !store.getters['auth/isAdmin']) {

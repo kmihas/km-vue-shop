@@ -103,8 +103,8 @@ export default {
     tokenExpired(state) {
       return Date.now() >= state.token.expiresData
     },
-    isAdmin(state) {
-      return state.user.role === 'admin'
+    isAdmin(state, getters) {
+      return state.user.role === 'admin' && getters.isAutenticated
     },
     userEmail(state) {
       return state.user.email ?? ''

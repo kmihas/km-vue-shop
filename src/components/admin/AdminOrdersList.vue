@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { computed, onBeforeMount } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -39,22 +39,12 @@ export default {
 			type: Array,
 		},
 	},
-	setup(props) {
+	setup() {
 		const store = useStore()
 		const usersMail = computed(() => store.getters['users/usersMail'])
-
 		const getDate = (date) => {
-			const out = new Date(+date)
-			return out.toLocaleString()
+			return new Date(+date).toLocaleString()
 		}
-
-		onBeforeMount(() => {
-			const usersId = []
-			props.orders.forEach((el) => {
-				usersId.push(el.userId)
-			})
-			store.dispatch('users/getUsersMail', [...new Set(usersId)])
-		})
 
 		return {
 			getDate,

@@ -6,6 +6,7 @@ export default {
     return {
       products: [],
       product: {},
+      productsName: {},
       loading: false,
       filter: {
         search: '',
@@ -36,6 +37,12 @@ export default {
     },
     setCount(state, item) {
       state.products[item.idx].count = item.count
+    },
+    setProductsName(state, item) {
+      state.productsName = item
+    },
+    addProductName(state, item) {
+      state.productsName[item.id] = item.title
     }
   },
   actions: {
@@ -86,6 +93,27 @@ export default {
       if(data) {
         commit('setCount', {idx, count})
       }
+    },
+    getProductsName({commit, dispatch}, item) {
+      commit('setProductsName', {})
+			const count = item.length
+			let i = 0
+			setInterval(() => {
+        if (i < count) {
+          dispatch('getProductName', item[i])
+          i++
+				} else {
+          return
+				}
+			}, process.env.VUE_APP_REQUEST_TIMEOUT)
+    },
+    async getProductName({commit}, item) {
+      const url = `/products/${item}.json`
+      const {data} = await requestAxios.get(url)
+      commit('addProductName', {
+        id: item,
+        ...data
+      })
     }
   },
   getters: {
@@ -123,6 +151,9 @@ export default {
     },
     product(state) {
       return state.product
+    },
+    productsName(state) {
+      return state.productsName
     }
   }
 }
