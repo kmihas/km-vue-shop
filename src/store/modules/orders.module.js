@@ -1,4 +1,7 @@
+import { useToast } from 'vue-toastification'
 import requestAxios from '../../axios/request'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
@@ -46,6 +49,7 @@ export default {
           dispatch('products/changeCountById', {id: el.productId, count: el.count}, { root: true })
         })
         commit('cart/clearCart', {}, { root: true })
+        toast.success("Платеж принят! Ваш заказ комплектуется")
       }
     },
     async getCurrentOrder({commit, dispatch}, item) {

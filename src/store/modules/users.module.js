@@ -1,4 +1,7 @@
+import { useToast } from 'vue-toastification'
 import requestAxios from '../../axios/request'
+
+const toast = useToast()
 
 export default {
   namespaced: true,

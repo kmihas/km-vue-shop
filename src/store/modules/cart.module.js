@@ -1,4 +1,7 @@
+import { useToast } from 'vue-toastification'
 import requestAxios from '../../axios/request'
+
+const toast = useToast()
 const LOCAL_CART_KEY = 'km-shop-cart'
 
 export default {
@@ -27,6 +30,7 @@ export default {
         state.cart[id] = 1
       }
       localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart))
+      toast.success('Товар добавлен в корзину')
     },
     downProductCount(state, id) {
       if(+state.cart[id] > 1) {
@@ -37,10 +41,12 @@ export default {
         state.cartProducts.splice(idx, 1)
       }
       localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart))
+      toast.info("Товар удален из корзины")
     },
     addToCart(state, id) {
       state.cart[id] = 1
       localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(state.cart))
+      toast.success("Товар добавлен в корзину")
     },
     clearCart(state) {
       state.cart = {}

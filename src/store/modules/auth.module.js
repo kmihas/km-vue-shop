@@ -1,6 +1,9 @@
 import axios from 'axios'
+import { useToast } from 'vue-toastification'
 import requestAxios from '../../axios/request'
 import { error } from '../../utils/error'
+
+const toast = useToast()
 const TOKEN_KEY = process.env.VUE_APP_TOKEN_KEY
 const LOCAL_USER = process.env.VUE_APP_LOCAL_USER
 const APIKEY = process.env.VUE_APP_APIKEY
@@ -31,6 +34,7 @@ export default {
       state.user = {}
       localStorage.removeItem(TOKEN_KEY)
       localStorage.removeItem(LOCAL_USER)
+      toast.success('До свидания')
     }
   },
   actions: {
@@ -42,7 +46,7 @@ export default {
         commit('setToken', data)
         dispatch('getUser', data.localId)
       } catch (e) {
-        console.log(error(e.response.data.error.message))
+        toast.error(error(e.response.data.error.message))
         throw new Error()
       }
     },
@@ -66,7 +70,7 @@ export default {
           expiresData: (Date.now() + (+data.expires_in * 1000)),
         })
       } catch (e) {
-        console.log(error(e.response.data.error.message))
+        toast.error(error(e.response.data.error.message))
         throw new Error()
       }
     },
@@ -78,7 +82,7 @@ export default {
         commit('setToken', data)
         await dispatch('createUser', data)
       } catch (e) {
-        console.log(error(e.response.data.error.message))
+        toast.error(error(e.response.data.error.message))
         throw new Error()
       }
     },
@@ -86,9 +90,10 @@ export default {
       try {
         const url = `/users/${payload.localId}.json`
         await requestAxios.put(url, {email: payload.email, role: 'user'})
-        dispatch('getUser', payload.localId)
+        await dispatch('getUser', payload.localId)
+        toast.success('Пользователь зарегистрирован')
       } catch (e) {
-        console.log(error(e.response.data.error.message))
+        toast.error(error(e.response.data.error.message))
         throw new Error()
       }
     }

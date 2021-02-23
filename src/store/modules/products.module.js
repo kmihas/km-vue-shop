@@ -1,4 +1,7 @@
+import { useToast } from 'vue-toastification'
 import requestAxios from '../../axios/request'
+
+const toast = useToast()
 
 export default {
   namespaced: true,
@@ -75,15 +78,24 @@ export default {
       const url = `/products/${item.id}.json`
       const body = {...item}
       delete body.id
-      await requestAxios.put(url, body)
+      const {data} = await requestAxios.put(url, body)
+      if(data) {
+        toast.success('Сохранено')
+      }
     },
     async saveProduct({commit}, item) {
       const url = '/products.json'
-      await requestAxios.post(url, item)
+      const {data} = await requestAxios.post(url, item)
+      if(data) {
+        toast.success('Сохранено')
+      }
     },
     async deleteProduct({commit}, item) {
       const url = `/products/${item}.json`
-      await requestAxios.delete(url)
+      const {data} = await requestAxios.delete(url)
+      if(data) {
+        toast.info('Удалено')
+      }
     },
     async changeCountById({state, commit}, item) {
       const url = `/products/${item.id}.json`
