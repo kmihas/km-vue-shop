@@ -4,6 +4,7 @@ import cart from './modules/cart.module'
 import categories from './modules/categories.module'
 import orders from './modules/orders.module'
 import products from './modules/products.module'
+import users from './modules/users.module'
 
 const plugins = []
 
@@ -26,6 +27,7 @@ export default createStore({
     cart,
     categories,
     products,
-    orders
+    orders,
+    users
   }
 })

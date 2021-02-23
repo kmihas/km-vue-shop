@@ -66,7 +66,11 @@ const routes = [
       },
       {
         path: 'orders',
-        component: () => import('../components/admin/AdminOrdersList')
+        component: () => import('../components/admin/AdminOrders')
+      },
+      {
+        path: 'order/:id?',
+        component: () => import('../components/admin/AdminOrder')
       }
     ]
   },

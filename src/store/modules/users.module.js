@@ -1,0 +1,48 @@
+import requestAxios from '../../axios/request'
+
+export default {
+  namespaced: true,
+  state() {
+    return {
+      usersMail: {}
+    }
+  },
+  mutations: {
+    setUsersMail(state, item) {
+      state.orders = item
+    },
+    addUsersMail(state, item) {
+      state.usersMail[item.id] = item.email
+    }
+  },
+  actions: {
+    async getUsersMail({dispatch, commit}, item) {
+      commit('setUsersMail', {})
+
+			const count = item.length
+			let i = 0
+			setInterval(() => {
+        if (i < count) {
+          dispatch('getMail', item[i])
+          i++
+				} else {
+          return
+				}
+			}, 100)
+    },
+    async getMail({commit}, item) {
+      const url = `/users/${item}.json`
+      const {data} = await requestAxios.get(url)
+      commit('addUsersMail', {
+        id: item,
+        email: data.email
+      })
+
+    }
+  },
+  getters: {
+    usersMail(state) {
+      return state.usersMail
+    }
+  }
+}

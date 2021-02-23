@@ -5,7 +5,8 @@ export default {
   state() {
     return {
       orders: [],
-      loading: false
+      loading: false,
+      currentOrder: {}
     }
   },
   mutations: {
@@ -14,18 +15,26 @@ export default {
     },
     setOrders(state, item) {
       state.orders = item
+    },
+    setCurrentOrder(state, item) {
+      state.currentOrder = item
     }
   },
   actions: {
-    getOrders({commit}) {
-      // commit('setLoading', true)
-      // const url = `/orders/${item}.json`
-      // const {data} = await requestAxios.get(url)
-      // await commit('setOrders', {
-      //   id: item,
-      //   ...data.data
-      // })
-      // await commit('setLoading', false)
+    async getOrders({commit}) {
+      commit('setLoading', true)
+      const url = `/orders.json`
+      const {data} = await requestAxios.get(url)
+      if (data) {
+        const result = Object.keys(data).map((item) => {
+        return {
+            id: item,
+            ...data[item],
+          }
+        })
+        await commit('setOrders', result)
+      }
+      await commit('setLoading', false)
     },
     async saveOrder({commit,dispatch}, item) {
       const url = `/orders.json`
@@ -36,6 +45,16 @@ export default {
         })
         commit('cart/clearCart', {}, { root: true })
       }
+    },
+    async getCurrentOrder({commit}, item) {
+      commit('setCurrentOrder', {})
+      commit('setLoading', true)
+      const url = `/orders/${item}.json`
+      const {data} = await requestAxios.get(url)
+      if(data) {
+        await commit('setCurrentOrder', data)
+      }
+      commit('setLoading', false)
     }
   },
   getters: {
@@ -44,6 +63,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    currentOrder(state) {
+      return state.currentOrder
     }
   }
 }
