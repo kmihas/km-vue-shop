@@ -4,14 +4,14 @@
 		<AppLoader />
 	</div>
 	<div v-else>
-		<AdminCategoriesTable :categories="categories" />
+		<AdminCategoriesList :categories="categories" />
 	</div>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import AdminCategoriesTable from './AdminCategoriesTable'
+import AdminCategoriesList from './AdminCategoriesList'
 import AppLoader from '../ui/AppLoader'
 
 export default {
@@ -27,7 +27,7 @@ export default {
 		}
 	},
 	components: {
-		AdminCategoriesTable,
+		AdminCategoriesList,
 		AppLoader,
 	},
 }

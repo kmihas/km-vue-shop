@@ -52,7 +52,7 @@ import AdminCategoryEdit from './AdminCategoryEdit'
 import AppConfirm from '../ui/AppConfirm'
 
 export default {
-	name: 'AdminCategoriesTable',
+	name: 'AdminCategoriesList',
 	props: {
 		categories: {
 			type: Array,

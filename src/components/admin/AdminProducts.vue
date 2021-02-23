@@ -6,14 +6,14 @@
 			<AppLoader />
 		</div>
 		<div v-else>
-			<AdminProductsTable :products="products" :categories="categories">
+			<AdminProductsList :products="products" :categories="categories">
 				<AppPagination
 					class="center-align"
 					:curr="+pageCurr"
 					:last="+pageLast"
 					v-if="show"
 				/>
-			</AdminProductsTable>
+			</AdminProductsList>
 		</div>
 	</div>
 </template>
@@ -23,7 +23,7 @@ import { computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useProductFilter } from '../../use/product-filter'
-import AdminProductsTable from './AdminProductsTable'
+import AdminProductsList from './AdminProductsList'
 import AppPagination from '../ui/AppPagination'
 import AppLoader from '../ui/AppLoader'
 import AppFilterForm from '../AppFilterForm'
@@ -53,7 +53,7 @@ export default {
 		}
 	},
 	components: {
-		AdminProductsTable,
+		AdminProductsList,
 		AppPagination,
 		AppLoader,
 		AppFilterForm,

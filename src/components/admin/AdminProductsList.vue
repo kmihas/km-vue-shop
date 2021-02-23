@@ -64,7 +64,7 @@ import AdminProductEdit from './AdminProductEdit'
 import AppConfirm from '../ui/AppConfirm'
 
 export default {
-	name: 'AdminProductsTable',
+	name: 'AdminProductsList',
 	props: {
 		products: {
 			type: Array,
