@@ -48,8 +48,8 @@
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-import AdminCategoryEdit from './AdminCategoryEdit'
-import AppConfirm from '../ui/AppConfirm'
+import AdminCategoryEdit from '@/components/admin/AdminCategoryEdit'
+import AppConfirm from '@/components/ui/AppConfirm'
 
 export default {
 	name: 'AdminCategoriesList',

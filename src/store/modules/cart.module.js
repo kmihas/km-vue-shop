@@ -1,5 +1,5 @@
+import requestAxios from '@/axios/request'
 import { useToast } from 'vue-toastification'
-import requestAxios from '../../axios/request'
 
 const toast = useToast()
 const LOCAL_CART_KEY = 'km-shop-cart'

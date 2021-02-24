@@ -55,7 +55,7 @@
 import { computed, onBeforeMount, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import AppLoader from '../ui/AppLoader'
+import AppLoader from '@/components/ui/AppLoader'
 
 export default {
 	name: 'AdminOrder',

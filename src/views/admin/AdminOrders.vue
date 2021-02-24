@@ -11,8 +11,8 @@
 <script>
 import { computed, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
-import AdminOrdersList from './AdminOrdersList'
-import AppLoader from '../ui/AppLoader'
+import AdminOrdersList from '@/components/admin/AdminOrdersList'
+import AppLoader from '@/components/ui/AppLoader'
 
 export default {
 	name: 'AdminOrders',

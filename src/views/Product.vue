@@ -48,8 +48,8 @@
 import { computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import AppAddCart from '../components/ui/AppAddCart'
-import AppLoader from '../components/ui/AppLoader'
+import AppAddCart from '@/components/ui/AppAddCart'
+import AppLoader from '@/components/ui/AppLoader'
 
 export default {
 	setup() {

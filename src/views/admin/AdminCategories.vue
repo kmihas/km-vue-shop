@@ -11,8 +11,8 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import AdminCategoriesList from './AdminCategoriesList'
-import AppLoader from '../ui/AppLoader'
+import AdminCategoriesList from '@/components/admin/AdminCategoriesList'
+import AppLoader from '@/components/ui/AppLoader'
 
 export default {
 	name: 'AdminCategories',

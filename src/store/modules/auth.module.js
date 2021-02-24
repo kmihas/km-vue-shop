@@ -1,7 +1,7 @@
+import requestAxios from '@/axios/request'
+import { error } from '@/utils/error'
 import axios from 'axios'
 import { useToast } from 'vue-toastification'
-import requestAxios from '../../axios/request'
-import { error } from '../../utils/error'
 
 const toast = useToast()
 const TOKEN_KEY = process.env.VUE_APP_TOKEN_KEY

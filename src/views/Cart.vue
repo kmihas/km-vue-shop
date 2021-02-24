@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import CartTable from '../components/cart/CartTable'
-import CartTitle from '../components/cart/CartTitle'
-import AppLoader from '../components/ui/AppLoader'
-import { useCart } from '../use/cart'
-import Auth from '../views/Auth'
-import AppModalWrapper from '../components/AppModalWrapper'
+import CartTable from '@/components/cart/CartTable'
+import CartTitle from '@/components/cart/CartTitle'
+import AppLoader from '@/components/ui/AppLoader'
+import { useCart } from '@/use/cart'
+import Auth from '@/views/Auth'
+import AppModalWrapper from '@/components/AppModalWrapper'
 
 export default {
 	name: 'Cart',

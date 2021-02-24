@@ -1,8 +1,8 @@
+import store from '@/store/index'
+import Auth from '@/views/Auth'
+import Product from '@/views/Product'
+import Shop from '@/views/Shop'
 import { createRouter, createWebHistory } from 'vue-router'
-import store from '../store/index'
-import Auth from '../views/Auth'
-import Product from '../views/Product'
-import Shop from '../views/Shop'
 
 const routes = [
   {
@@ -32,7 +32,7 @@ const routes = [
   {
     path: '/cart',
     name: 'cart',
-    component: () => import('../views/Cart'),
+    component: () => import('@/views/Cart'),
     meta: {
       layout: 'main',
       admin: false
@@ -43,7 +43,7 @@ const routes = [
     name: 'admin',
     alias: '/admin/',
     redirect: '/admin/products',
-    component: () => import('../views/Admin'),
+    component: () => import('@/views/Admin'),
     meta: {
       layout: 'admin',
       admin: true
@@ -51,7 +51,7 @@ const routes = [
     children: [
       {
         path: 'products',
-        component: () => import('../components/admin/AdminProducts'),
+        component: () => import('@/views/admin/AdminProducts'),
         props: route => ({
           query: route.query.search,
           query: route.query.category,
@@ -60,15 +60,15 @@ const routes = [
       },
       {
         path: 'categories',
-        component: () => import('../components/admin/AdminCategories'),
+        component: () => import('@/views/admin/AdminCategories'),
       },
       {
         path: 'orders',
-        component: () => import('../components/admin/AdminOrders')
+        component: () => import('@/views/admin/AdminOrders')
       },
       {
         path: 'order/:id?',
-        component: () => import('../components/admin/AdminOrder')
+        component: () => import('@/views/admin/AdminOrder')
       }
     ]
   },

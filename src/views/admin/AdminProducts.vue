@@ -22,11 +22,11 @@
 import { computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import { useProductFilter } from '../../use/product-filter'
-import AdminProductsList from './AdminProductsList'
-import AppPagination from '../ui/AppPagination'
-import AppLoader from '../ui/AppLoader'
-import AppFilterForm from '../AppFilterForm'
+import { useProductFilter } from '@/use/product-filter'
+import AdminProductsList from '@/components/admin/AdminProductsList'
+import AppPagination from '@/components/ui/AppPagination'
+import AppLoader from '@/components/ui/AppLoader'
+import AppFilterForm from '@/components/AppFilterForm'
 
 export default {
 	name: 'AdminsProducts',

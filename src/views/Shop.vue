@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import AppFilterForm from '../components/AppFilterForm'
-import ShopProductList from '../components/shop/ShopProductList'
-import { useProductFilter } from '../use/product-filter'
-import { useLoadEnter } from '../use/load-enter'
+import AppFilterForm from '@/components/AppFilterForm'
+import ShopProductList from '@/components/shop/ShopProductList'
+import { useProductFilter } from '@/use/product-filter'
+import { useLoadEnter } from '@/use/load-enter'
 
 export default {
 	name: 'Shop',

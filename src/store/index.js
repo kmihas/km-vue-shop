@@ -1,10 +1,10 @@
+import auth from '@/store/modules/auth.module'
+import cart from '@/store/modules/cart.module'
+import categories from '@/store/modules/categories.module'
+import orders from '@/store/modules/orders.module'
+import products from '@/store/modules/products.module'
+import users from '@/store/modules/users.module'
 import { createLogger, createStore } from 'vuex'
-import auth from './modules/auth.module'
-import cart from './modules/cart.module'
-import categories from './modules/categories.module'
-import orders from './modules/orders.module'
-import products from './modules/products.module'
-import users from './modules/users.module'
 
 const plugins = []
 

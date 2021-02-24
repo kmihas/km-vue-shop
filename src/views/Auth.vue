@@ -37,7 +37,7 @@
 
 <script>
 import { ref, onMounted } from 'vue'
-import AuthForm from '../components/auth/AuthForm'
+import AuthForm from '@/components/auth/AuthForm'
 
 export default {
 	name: 'Auth',

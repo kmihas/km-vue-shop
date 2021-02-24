@@ -49,8 +49,8 @@
 <script>
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
-import AppModalWrapper from '../AppModalWrapper'
-import AppConfirm from '../ui/AppConfirm'
+import AppModalWrapper from '@/components/AppModalWrapper'
+import AppConfirm from '@/components/ui/AppConfirm'
 
 export default {
 	name: 'AdminCategoryEdit',

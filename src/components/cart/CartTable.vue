@@ -29,7 +29,7 @@
 
 <script>
 import { computed } from 'vue'
-import AppAmount from '../ui/AppAmount'
+import AppAmount from '@/components/ui/AppAmount'
 
 export default {
 	name: 'CartTable',

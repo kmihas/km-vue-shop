@@ -60,8 +60,8 @@
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-import AdminProductEdit from './AdminProductEdit'
-import AppConfirm from '../ui/AppConfirm'
+import AdminProductEdit from '@/components/admin/AdminProductEdit'
+import AppConfirm from '@/components/ui/AppConfirm'
 
 export default {
 	name: 'AdminProductsList',

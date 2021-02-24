@@ -20,9 +20,9 @@
 import { computed, watch, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import ShopProductCard from './ShopProductCard'
-import AppPagination from '../ui/AppPagination'
-import AppLoader from '../ui/AppLoader'
+import ShopProductCard from '@/components/shop/ShopProductCard'
+import AppPagination from '@/components/ui/AppPagination'
+import AppLoader from '@/components/ui/AppLoader'
 
 export default {
 	name: 'ShopPage',

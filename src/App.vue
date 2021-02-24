@@ -5,9 +5,9 @@
 <script>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import MainLayout from './layouts/MainLayout'
-import AuthLayout from './layouts/AuthLayout'
-import AdminLayout from './layouts/AdminLayout'
+import MainLayout from '@/layouts/MainLayout'
+import AuthLayout from '@/layouts/AuthLayout'
+import AdminLayout from '@/layouts/AdminLayout'
 
 export default {
 	setup() {

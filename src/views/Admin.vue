@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { useLoadEnter } from '../use/load-enter'
+import { useLoadEnter } from '@/use/load-enter'
 
 export default {
 	setup() {

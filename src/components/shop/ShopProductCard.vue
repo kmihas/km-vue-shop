@@ -26,7 +26,7 @@
 
 <script>
 import { computed } from 'vue'
-import AppAddCart from '../ui/AppAddCart'
+import AppAddCart from '@/components/ui/AppAddCart'
 import { useStore } from 'vuex'
 
 export default {

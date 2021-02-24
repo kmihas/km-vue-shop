@@ -1,5 +1,5 @@
+import store from '@/store/modules/auth.module'
 import axios from 'axios'
-import store from '../store/modules/auth.module'
 
 const requestAxios = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL
