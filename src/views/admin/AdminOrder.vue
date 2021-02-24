@@ -63,7 +63,7 @@ export default {
 		const store = useStore()
 		const route = useRoute()
 		const router = useRouter()
-		const id = route.params.id
+		const id = computed(() => route.params.id)
 		const isLoading = computed(() => {
 			return (
 				store.getters['orders/loading'] && store.getters['products/loading']
