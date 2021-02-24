@@ -41,16 +41,14 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
+    alias: '/admin/',
+    redirect: '/admin/products',
     component: () => import('../views/Admin'),
     meta: {
       layout: 'admin',
       admin: true
     },
     children: [
-      {
-        path: '',
-        component: () => import('../components/admin/AdminHome'),
-      },
       {
         path: 'products',
         component: () => import('../components/admin/AdminProducts'),

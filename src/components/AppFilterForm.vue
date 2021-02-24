@@ -28,7 +28,7 @@
 		<div class="input-field col s12">
 			<select v-model="perPageCurr">
 				<option
-					v-for="item in [4, 8, 12, 24]"
+					v-for="item in perPageArray"
 					:key="item"
 					:value="+item"
 					:class="{ selected: +item === +perPage }"
@@ -73,6 +73,7 @@ export default {
 		const page = ref(modelValue.page)
 		const perPage = computed(() => store.getters['products/perPage'])
 		const perPageCurr = ref(perPage.value)
+		const perPageArray = [4, 8, 12, 24]
 
 		const changeSearch = (event) => {
 			search.value = event.target.value
@@ -121,6 +122,7 @@ export default {
 			clearFilter,
 			perPage,
 			perPageCurr,
+			perPageArray,
 		}
 	},
 }
