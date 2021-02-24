@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { computed, onBeforeMount, watch } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import AppLoader from '@/components/ui/AppLoader'
@@ -63,7 +63,7 @@ export default {
 		const store = useStore()
 		const route = useRoute()
 		const router = useRouter()
-		const id = computed(() => route.params.id)
+		const id = route.params.id
 		const isLoading = computed(() => {
 			return (
 				store.getters['orders/loading'] && store.getters['products/loading']
@@ -92,7 +92,7 @@ export default {
 		}
 
 		onBeforeMount(() => {
-			store.dispatch('orders/getCurrentOrder', id.value)
+			store.dispatch('orders/getCurrentOrder', id)
 		})
 
 		return {

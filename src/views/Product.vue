@@ -56,7 +56,7 @@ export default {
 		const store = useStore()
 		const route = useRoute()
 		const router = useRouter()
-		const id = computed(() => route.params.id)
+		const id = route.params.id
 		const product = computed(() => store.getters['products/product'])
 		const isLoading = computed(() => store.getters['products/loading'])
 		const cart = computed(() => store.getters['cart/cart'])
@@ -69,7 +69,7 @@ export default {
 		}
 
 		onBeforeMount(() => {
-			store.dispatch('products/getProductById', id.value)
+			store.dispatch('products/getProductById', id)
 		})
 
 		return {
